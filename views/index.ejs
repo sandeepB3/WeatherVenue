@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('head', {
+    version: 'bootstrap',
+    centerLocation: 'london',
+    lang: 'en',
+    title: 'Welcome to WeatherVenue',
+    description: 'WeatherVenue lets you find best places to visit in your entourage; Easily finding warmer winter vacation or cool summer escapes.'}); %>
+</head>
+
+<body>
+  <div id="cookies-eu-banner" style="display: none;">
+    By continuing to visit this site, you accept the use of cookies by Google Analytics for statistical purposes.
+    <a href="https://www.cookielaw.org/google-analytics-eu-cookie-law/" id="cookies-eu-more">Read more</a>
+    <button id="cookies-eu-reject">Reject</button>
+    <button id="cookies-eu-accept">Accept</button>
+  </div>
+  <div id="spinner-back"></div>
+  <div id="spinner-front">
+    <img src="./img/loading.gif" /><br>
+  </div>
+  <%- include('partials/nav_bar'); %>
+  <%- include('partials/map', { 
+    command: 'Enter a location'}); %>
+
+      
+  <div class="container-fluid">
+    <h3 id="location">Search for your city to display next days forecasts.</h3>
+    <p id="date"></p>
+    <div class="row" id="forecast-items"></div>
+  </div>
+
+  <div class="container-fluid">
+    <h3 id="gallery">Weather comparision.</h3>
+    <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="pull-right"> 
+        <button type="button" class="btn btn-outline-warning" onclick="emptyIt()">Start over</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="gallery">Local pictures of the main city also will appear.</h3>
+  <section id="imgGrid">
+	
+  </section>
+  <%- include('partials/footer'); %>
+</body>
+<%- include('partials/after_body'); %>
+</html>

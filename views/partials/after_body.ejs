@@ -1,0 +1,27 @@
+<script src="../../js/js_variables.js"></script>
+<script src="../../js/lang_mappings.js"></script>
+<script src="../../js/html_holders.js"></script>
+<script src="../../js/accessibility.js"></script>
+<script src="../../js/GMap.js"></script>
+<script>
+  new CookiesEuBanner(function () {
+      // Your code to launch when user accept cookies
+      // Google analytics
+      window.dataLayer = window.dataLayer || []
+      function gtag(){dataLayer.push(arguments)}
+      gtag('js', new Date())
+      gtag('config', 'G-59D6066VJ6')
+      console.log('accepted')
+  });
+  fullScreenBtn = __id('fullscreen');
+  fullScreenBtn.addEventListener('click', () => {
+    if (screenfull.isEnabled) {
+      screenfull.request();
+    } else {
+      // Ignore or do something else
+    }
+  });
+  screenfull.on('change', () => {
+		screenfull.isFullscreen ? fullScreenBtn.style.visibility = "hidden" : fullScreenBtn.style.visibility = "visible";
+	});
+</script>

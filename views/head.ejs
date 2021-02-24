@@ -1,0 +1,21 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Description" content="<%= description %>">
+<title><%= title %></title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
+<% if(version=='bootstrap'){ %>
+    <%- include('html_dependencies/bootstrap'); %>
+  <% } else if(version=='bootstrap-rtl'){ %>  
+    <%- include('html_dependencies/bootstrap-rtl'); %>
+ <% } %>
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcL91cr-kioveamPxcvnQTT4OA9asC1TE&callback=initMap&libraries=places&v=weekly" centerLocation="<%= centerLocation %>" lang="<%= lang %>"
+defer></script>
+<script src="../js/libraries/heatmap.min.js" defer></script>
+<script src="../js/libraries/gmaps-heatmap.js" defer></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<script src="../js/libraries/cookies-eu-banner.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js" integrity="sha512-SGPHIoS+NsP1NUL5RohNpDs44JlF36tXLN6H3Cw+EUyenEc5zPXWqfw9D+xmvR00QYUYewQIJQ6P5yH82Vw6Fg==" crossorigin="anonymous"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59D6066VJ6"></script>
+<script data-ad-client="ca-pub-4987312092359418" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

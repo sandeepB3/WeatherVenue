@@ -672,7 +672,7 @@ function getMarkers () {
         position: LatLng,
         map: map,
         animation: google.maps.Animation.DROP,
-        title: feature.j.name,
+        title: feature.i.name,
         iconSrc: `https://maps.google.com/mapfiles/ms/icons/${getColor(minTemp, maxTemp, todayTemp)}-dot.png`
       })
       // console.log('minTemp', minTemp, 'maxTemp', maxTemp, 'todayTemp', todayTemp)

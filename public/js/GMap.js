@@ -563,8 +563,8 @@ function renderForecastDays (dailies) {
     return second.dt - first.dt
   })
   const weekdayNames = _weekdaysLangs(language)
-  document.body.style.backgroundImage = `url(http://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'}.png)`
-  document.documentElement.style.backgroundImage = `url(http://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'}.png)`
+  document.body.style.backgroundImage = `url(https://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'}.png)`
+  document.documentElement.style.backgroundImage = `url(https://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'}.png)`
   __id('forecast-items').innerHTML = ''
   const maxTemp = Math.max(...dailies.map((item) => { return item.temp.max }))
   const minTemp = Math.max(...dailies.map((item) => { return item.temp.min }))
@@ -573,7 +573,7 @@ function renderForecastDays (dailies) {
     d.setUTCSeconds(period.dt)
     const ISODate = d.toISOString().slice(5, 10)
     const dayName = weekdayNames[d.getDay()] // new Date(period.dateTimeISO).getDay()
-    const iconSrc = `http://openweathermap.org/img/wn/${period.weather[0].icon || 'na'}@4x.png`
+    const iconSrc = `https://openweathermap.org/img/wn/${period.weather[0].icon || 'na'}@4x.png`
     const maxTempF = period.temp.max || 'N/A'
     const minTempF = period.temp.min || 'N/A'
     // const averageTemp = (maxTempF + minTempF) / 2

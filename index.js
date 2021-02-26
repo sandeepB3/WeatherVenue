@@ -138,14 +138,22 @@ client.on('error', (error) => {
 
 // 2 /////////////////////////////////////////////////////////////////////////////////////
 // get data from openweathermap API
+const { setupCache } = require('axios-cache-adapter')
+const cache = setupCache({
+  maxAge: 24 * 60 * 3
+})
+const api = axios.create({
+  adapter: cache.adapter
+})
+
 let language = 'en'
 async function fetchWeather (city) {
   return new Promise(async (resolve, reject) => {
     const APIUrlWeather = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&lang=${language}&exclude=hourly,minutely,hourly&units=metric&appid=${OPENWEATHERMAP_API_KEY}`
-    const body0 = await axios.get(APIUrlWeather)
+    const body0 = await api({ url: APIUrlWeather, method: 'get' })
     const data0 = await body0.data
-    const APIUrlPollution = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${city.lat}&lon=${city.lon}&appid=${OPENWEATHERMAP_API_KEY}`
-    const body1 = await axios.get(APIUrlPollution)
+    const APIUrlPollution = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${city.lat}&lon=${city.lon}&appid=${OPENWEATHERMAP_API_KEY}`
+    const body1 = await api({ url: APIUrlPollution, method: 'get' })
     const data1 = await body1.data
     resolve({ weather: data0, pollution: data1 })
   })

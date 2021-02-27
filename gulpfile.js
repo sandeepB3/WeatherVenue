@@ -16,3 +16,12 @@ gulp.task('compress', function () {
     gulp.dest('public/js/')
   )
 })
+
+// const ejs = require('gulp-ejs')
+// gulp.task('compress', function () {
+//   gulp.src('./templates/*.ejs')
+//     .pipe(ejs({
+//       msg: 'Hello Gulp!'
+//     }))
+//     .pipe(gulp.dest('./dist'))
+// })

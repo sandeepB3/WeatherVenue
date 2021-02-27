@@ -58,9 +58,9 @@ let center = { lat: -33.8688, lng: 151.2195 }
 
 // sets default geolocation for center based on originating page: {index.html, index_ar.html}
 function refreshCenter () {
-  const mapScript = document.getElementsByTagName('script')[3]
-  language = mapScript.getAttribute('lang')
-  const centerLocation = mapScript.getAttribute('centerLocation')
+  const mapScripts = document.getElementsByTagName('script')
+  language = [...mapScripts].map(ss => { return ss.getAttribute('lang') }).filter(Boolean)[0]
+  const centerLocation = [...mapScripts].map(ss => { return ss.getAttribute('centerLocation') }).filter(Boolean)[0]
   switch (centerLocation) {
     case 'algiers':
       center = { lat: 36.75, lng: 3.05 }

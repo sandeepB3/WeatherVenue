@@ -251,7 +251,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map)
 }
 
-
 // Instanciate new UI controles for DOM page or Google map. Configure UI controles or retrieve present UI controles when they exist.
 /**
  * darkSwitch
@@ -522,34 +521,21 @@ function showAlertsList(currObj) {
  * map getScale() on weather
  */
 const getScale = (min, max, value) => Math.floor(5 * (value - min) / (max - min))
-let heatmap
 function populateHeatMap (day) {
   if (!currObj.isValid) {
     return false
-  }
-  if (!heatmap) {
-    heatmap = new HeatmapOverlay(map,
-      {
-        radius: 0.03,
-        maxOpacity: 1,
-        scaleRadius: true,
-        useLocalExtrema: true,
-        latField: 'lat',
-        lngField: 'lng',
-        valueField: 'count'
-      }
-    )
   }
   let temps = currObj.weather.map(a => { return a.daily[day].temp.min })
   const tempsMax = Math.max(...temps)
   const tempsMin = Math.min(...temps)
   temps = temps.map(a => { return getScale(tempsMin, tempsMax, a) })
-  const counts = currObj.weather.map((a, idx) => { return { lat: a.lat, lng: a.lon, count: temps[idx] } })
-  const data = {
-    max: 8,
-    data: counts
-  }
-  heatmap.setData(data)
+  const heatMapData = currObj.weather.map((a, idx) => { return { location: new google.maps.LatLng(a.lat, a.lon), weight: temps[idx] } })
+  const heatmap = new google.maps.visualization.HeatmapLayer({
+    data: heatMapData,
+    radius: 200,
+    opacity: 0.5
+  })
+  heatmap.setMap(map)
   return true
 }
 

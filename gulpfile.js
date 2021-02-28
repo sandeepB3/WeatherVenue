@@ -5,7 +5,7 @@ const sourcemaps = require('gulp-sourcemaps')
 const terser = require('gulp-terser')
 const pipeline = require('readable-stream').pipeline
 
-gulp.task('compress', function () {
+gulp.task('compress_js', function () {
   return pipeline(
     gulp.src(['src/js/js_variables.js', 'src/js/lang_mappings.js', 'src/js/html_holders.js', 'src/js/accessibility.js', 'src/js/GMap.js']),
     sourcemaps.init(),
@@ -15,6 +15,14 @@ gulp.task('compress', function () {
     // uglify(),
     gulp.dest('public/js/')
   )
+})
+
+const imagemin = require('gulp-imagemin');
+
+gulp.task('compress_images', async function () {
+  gulp.src('src/img/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('public/img/'))
 })
 
 // const ejs = require('gulp-ejs')

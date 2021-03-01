@@ -2,21 +2,18 @@
 ### Contributing to WeatherVenue
 
 Like my other repositories, I try to make my projects welcoming to new comers. Whether you are new to open source or to programming in general, this is a nice starter project.
+
 Check [how to contribute page](https://opensource.guide/how-to-contribute/)
 
-This project is no exception check a walk-through presentation of the code.  
-[WALK-THROUGH](https://github.com/bacloud14/WeatherVenue/blob/master/CONTRIBUTING.pdf) 
+This project is no exception; Check a walk-through presentation of the code.  
+[WALK-THROUGH](https://github.com/bacloud14/WeatherVenue/blob/master/CONTRIBUTING/CONTRIBUTING.pdf) 
 
 
 Please prefer discussions page before opening a new issue unless it is an obvious bug or enhancement.
 
 https://github.com/bacloud14/WeatherVenue/discussions/29
 
-Please see open issues for a specific issue, and do not hesitate to open any new issue (like better code, readability, modularity and best practice, performance, better UI or even functionality enhancements...).
-
-You can join me on Slack for questions or chat
- 
-[<img src="https://img.shields.io/badge/slack-join%20us-blueviolet">](http://bacloud.slack.com) 
+Please see open issues for a specific issue and do not hesitate to open any new issue (like better code, readability, modularity and best practice, performance, better UI or even functionality enhancements...).
 
 Current priority: 
 

@@ -1,5 +1,4 @@
 const gulp = require('gulp')
-const uglify = require('gulp-uglify')
 const concat = require('gulp-concat')
 const sourcemaps = require('gulp-sourcemaps')
 const terser = require('gulp-terser')
@@ -23,6 +22,14 @@ gulp.task('compress_images', async function () {
   gulp.src('src/img/*')
     .pipe(imagemin())
     .pipe(gulp.dest('public/img/'))
+})
+
+const gzip = require('gulp-gzip')
+
+gulp.task('compress', function() {
+  gulp.src('./files/*')
+    .pipe(gzip())
+    .pipe(gulp.dest('data/'))
 })
 
 // const ejs = require('gulp-ejs')

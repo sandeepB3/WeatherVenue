@@ -53,7 +53,7 @@ app.use(express.static(__dirname + '/public/', {
     }
   }
 }))
-app.use(require('./routes'))
+app.use(require('./api/routes'))
 
 const dns = require('dns')
 app.use(function (req, res, next) {

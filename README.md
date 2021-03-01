@@ -7,15 +7,22 @@ It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-
 
 # Deployment
 
-- Use my keys or replace with your (use wisely, just do not stuck it in a loop x))
+- Replace with your keys (use wisely. Do not stuck in a loop and do not publicly push on GITHUB x))
+- Accept origins like (localhost:3001) in Google developers console map API.
 - Install and run Redis server.
 - Configure .env file with the followings:
+```
     - NODE_ENV=dev
     - PORT=3000
     - REDIS_PORT=####
     - OPENWEATHERMAP_API_KEY=####
-    - GOOGLE_MAPS_API_KEY=AIzaSyBcL91cr-kioveamPxcvnQTT4OA9asC1TE
+    - GOOGLE_MAPS_API_KEY=GOOGLE_MAPS_API_KEY
     - HONEYPOT_KEY=####
+```
+
+Replace GOOGLE_MAPS_API_KEY also in client end in `views/head.ejs `
+
+`<script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&callback=initMap&libraries=places,visualization&v=weekly"`
 
 Then run:
 
@@ -25,27 +32,19 @@ Then run:
 
 # A Glimpse of UI
 
-See the static pages https://bacloud14.github.io/WeatherVenue/ or https://bacloud14.github.io/WeatherVenue/index.html or https://bacloud14.github.io/WeatherVenue/index_ar.html
 
 when deployed after research it should be like: 
 
-![capture](Capture.PNG)
+![capture](CONTRIBUTING/Capture.PNG)
 
-![capture2](Capture2.PNG)
+![capture2](CONTRIBUTING/Capture2.PNG)
 
 # Contribution
 
-See a static dummy version to get a tast of it :
-
-https://bacloud14.github.io/WeatherVenue/ or https://bacloud14.github.io/WeatherVenue/index.html or https://bacloud14.github.io/WeatherVenue/index_ar.html
-
-It can be used for fast styling propositions. 
 
 Please see open issues for a specific issue, and do not hesitate to open any new issue (like better code, readability, modularity and best practice, performance, better UI or even functionality enhancements...).
 
-You can join me on Slack for questions or chat
- 
-[<img src="https://img.shields.io/badge/slack-join%20us-blueviolet">](https://bacloud.slack.com) 
+
 
 Current priority: 
 

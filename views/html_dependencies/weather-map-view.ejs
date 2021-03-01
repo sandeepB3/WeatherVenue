@@ -1,9 +1,9 @@
 <script>
-    var map;
+    var map2;
     var geoJSON;
     var request;
     var gettingData = false;
-    var openWeatherMapKey = "bd28a4d61d422ddeb0a1db08ce16c1fc"
+    var openWeatherMapKey = ''
  
     function initialize() {
       var mapOptions = {
@@ -14,13 +14,13 @@
         fullscreenControl: false
       };
 
-      map = new google.maps.Map(__id('map-canvas'),
+      map2 = new google.maps.Map(__id('map-canvas'),
         mapOptions);
       infoWindow = new google.maps.InfoWindow();
       const locationButton = document.createElement("button");
       locationButton.textContent = "Go to Current Location";
       locationButton.classList.add("custom-map-control-button");
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+      map2.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
       locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -32,24 +32,24 @@
               };
               infoWindow.setPosition(pos);
               infoWindow.setContent("Location found.");
-              infoWindow.open(map);
-              map.setCenter(pos);
+              infoWindow.open(map2);
+              map2.setCenter(pos);
             },
             () => {
-              handleLocationError(true, infoWindow, map.getCenter());
+              handleLocationError(true, infoWindow, map2.getCenter());
             }
           );
         } else {
           // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+          handleLocationError(false, infoWindow, map2.getCenter());
         }
       });
 
       // Add interaction listeners to make weather requests
-      google.maps.event.addListener(map, 'idle', checkIfDataRequested);
+      google.maps.event.addListener(map2, 'idle', checkIfDataRequested);
 
       // Sets up and populates the info window with details
-      map.data.addListener('click', function (event) {
+      map2.data.addListener('click', function (event) {
         infowindow.setContent(
           "<img src=" + event.feature.getProperty("icon") + ">"
           + "<br /><strong>" + event.feature.getProperty("city") + "</strong>"
@@ -66,7 +66,7 @@
             height: -15
           }
         });
-        infowindow.open(map);
+        infowindow.open(map2);
       });
     }
 
@@ -77,7 +77,7 @@
           ? "Error: The Geolocation service failed."
           : "Error: Your browser doesn't support geolocation."
       );
-      infoWindow.open(map);
+      infoWindow.open(map2);
     }
 
 
@@ -92,7 +92,7 @@
 
     // Get the coordinates from the Map bounds
     var getCoords = function () {
-      var bounds = map.getBounds();
+      var bounds = map2.getBounds();
       var NE = bounds.getNorthEast();
       var SW = bounds.getSouthWest();
       getWeather(NE.lat(), NE.lng(), SW.lat(), SW.lng());
@@ -101,22 +101,24 @@
     // Make the weather request
     var getWeather = function (northLat, eastLng, southLat, westLng) {
       gettingData = true;
-      var requestString = "https://api.openweathermap.org/data/2.5/box/city?bbox="
-        + westLng + "," + northLat + "," //left top
-        + eastLng + "," + southLat + "," //right bottom
-        + map.getZoom()
-        + "&cluster=yes&format=json"
-        + "&APPID=" + openWeatherMapKey;
+      const requestObject = JSON.stringify({
+        westLng: westLng,
+        northLat: northLat,
+        eastLng: eastLng,
+        southLat: southLat,
+        mapZoom: map2.getZoom()
+      })
       request = new XMLHttpRequest();
       request.onload = proccessResults;
-      request.open("get", requestString, true);
+      request.open("get", 'weatherMap/' + requestObject, true);
+      request.responseType = 'json'
       request.send();
     };
 
     // Take the JSON results and proccess them
     var proccessResults = function () {
       // console.log(this);
-      var results = JSON.parse(this.responseText);
+      var results = this.response.data;
       if (results.list.length > 0) {
         resetData();
         for (var i = 0; i < results.list.length; i++) {
@@ -153,7 +155,7 @@
         }
       };
       // Set the custom marker icon
-      map.data.setStyle(function (feature) {
+      map2.data.setStyle(function (feature) {
         return {
           icon: {
             url: feature.getProperty('icon'),
@@ -168,7 +170,7 @@
 
     // Add the markers to the map
     var drawIcons = function (weather) {
-      map.data.addGeoJson(geoJSON);
+      map2.data.addGeoJson(geoJSON);
       // Set the flag to finished
       gettingData = false;
     };
@@ -179,8 +181,8 @@
         type: "FeatureCollection",
         features: []
       };
-      map.data.forEach(function (feature) {
-        map.data.remove(feature);
+      map2.data.forEach(function (feature) {
+        map2.data.remove(feature);
       });
     };
 

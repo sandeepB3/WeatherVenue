@@ -13,9 +13,9 @@ It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-
     - NODE_ENV=dev
     - PORT=3000
     - REDIS_PORT=####
-    - OPENWEATHERMAP_API_KEY=bd28a4d61d422ddeb0a1db08ce16c1fc
+    - OPENWEATHERMAP_API_KEY=####
     - GOOGLE_MAPS_API_KEY=AIzaSyBcL91cr-kioveamPxcvnQTT4OA9asC1TE
-    - HONEYPOT_KEY=sjbpsgqlldtu
+    - HONEYPOT_KEY=####
 
 Then run:
 

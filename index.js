@@ -1,5 +1,6 @@
-// import * as helpers from "./helpers";
-// 0 /////////////////////////////////////////////////////////////////////////////////////
+// import { weatherMap } from "./routes"
+const routes = require('./routes')
+routes.weatherMap()
 const dotenv = require('dotenv')
 dotenv.config()
 console.log(`Your port is ${process.env.PORT}`) // 8626
@@ -114,7 +115,6 @@ client.on('error', (error) => {
   console.error(error)
 })
 
-// 1 /////////////////////////////////////////////////////////////////////////////////////
 // const fs = require('fs');
 // let rawdata = fs.readFileSync('city.list.min.json');
 // let citiesIds = JSON.parse(rawdata);
@@ -136,7 +136,6 @@ client.on('error', (error) => {
 //   }
 // }
 
-// 2 /////////////////////////////////////////////////////////////////////////////////////
 // get data from openweathermap API
 const { setupCache } = require('axios-cache-adapter')
 const cache = setupCache({
@@ -159,13 +158,42 @@ async function fetchWeather (city) {
   })
 }
 
+app.get('/weatherMap/:url', function rootHandler (req, res) {
+  if (!req.params.url) {
+    return res.status(400).send({
+      error: true,
+      message: 'Bad request',
+      data: 'Bad request'
+    })
+  }
+  const urlParams = JSON.parse(req.params.url)
+  let westLng, northLat, eastLng, southLat, mapZoom
+  ({ westLng, northLat, eastLng, southLat, mapZoom } = urlParams)
+  const openWeatherMapAPI = `https://api.openweathermap.org/data/2.5/box/city?bbox=${westLng},${northLat},${eastLng},${southLat},${mapZoom}&cluster=yes&format=json&APPID=${OPENWEATHERMAP_API_KEY}`
+  axios.get(openWeatherMapAPI).then(function (response) {
+    // handle success
+    return res.status(200).send({
+      error: false,
+      message: `Weather data for weather map`,
+      data: response.data
+    })
+  }).catch(function (error) {
+    console.log(error)
+    return res.status(400).send({
+      error: true,
+      message: 'Bad request',
+      data: 'Bad request'
+    })
+  })
+})
+
 const reqSchema = Joi.object({
   lat: Joi.number().min(-90).max(90).required(),
   lng: Joi.number().min(-180).max(180).required(),
   cityname: Joi.string().min(3).max(180).required(),
   language: Joi.string().min(2).max(2).required()
 })
-// 3 /////////////////////////////////////////////////////////////////////////////////////
+
 app.get('/nearby/:city', function rootHandler (req, res) {
   try {
     if (!req.params.city) {
@@ -230,7 +258,6 @@ app.get('/nearby/:city', function rootHandler (req, res) {
   }
 })
 
-// 4 /////////////////////////////////////////////////////////////////////////////////////
 function formatCities (cities, weathers, pollutions) {
   const newVar = {
     type: 'FeatureCollection',

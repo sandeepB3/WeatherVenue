@@ -13,15 +13,6 @@ client.on('error', (error) => {
   console.error(error)
 })
 
-// get data from openweathermap API
-const { setupCache } = require('axios-cache-adapter')
-const cache = setupCache({
-  maxAge: 24 * 60 * 3
-})
-const api = axios.create({
-  adapter: cache.adapter
-})
-
 router.get('/', function rootHandler (req, res) {
   res.render('index')
 })
@@ -63,19 +54,9 @@ router.get('/weatherMap/:url', function rootHandler (req, res) {
   })
 })
 
-let language = 'en'
-async function fetchWeather (city) {
-  return new Promise(async (resolve, reject) => {
-    const APIUrlWeather = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&lang=${language}&exclude=hourly,minutely,hourly&units=metric&appid=${OPENWEATHERMAP_API_KEY}`
-    const body0 = await api({ url: APIUrlWeather, method: 'get' })
-    const data0 = await body0.data
-    const APIUrlPollution = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${city.lat}&lon=${city.lon}&appid=${OPENWEATHERMAP_API_KEY}`
-    const body1 = await api({ url: APIUrlPollution, method: 'get' })
-    const data1 = await body1.data
-    resolve({ weather: data0, pollution: data1 })
-  })
-}
+const helpers = require('./helpers')
 
+let language = 'en'
 const reqSchema = Joi.object({
   lat: Joi.number().min(-90).max(90).required(),
   lng: Joi.number().min(-180).max(180).required(),
@@ -122,64 +103,28 @@ router.get('/nearby/:city', function rootHandler (req, res) {
           message: `Weather data for nearby cities for ${cityname} from the cache`,
           data: JSON.parse(result)
         })
-      } else {
-        const query = {
-          latitude: geometry.lat,
-          longitude: geometry.lng
-        }
-        const cities = nearbyCities(query).slice(0, 10)
-        const actions = cities.map(fetchWeather)
-        Promise.all(actions).then(function (forecasts) {
-          var weathers = forecasts.map(elem => { return elem.weather })
-          var pollutions = forecasts.map(elem => { return elem.pollution })
-          const result = formatCities(cities, weathers, pollutions)
-          client.setex(cityname, 24 * 60 * 3, JSON.stringify(result))
-          return res.status(200).send({
-            error: false,
-            message: 'Weather data for nearby cities from the server',
-            data: result
-          })
-        })
       }
+      const query = {
+        latitude: geometry.lat,
+        longitude: geometry.lng
+      }
+      const cities = nearbyCities(query).slice(0, 10)
+      const actions = cities.map(x => { return helpers.fetchWeather(x, language) })
+      Promise.all(actions).then(function (forecasts) {
+        var weathers = forecasts.map(elem => { return elem.weather })
+        var pollutions = forecasts.map(elem => { return elem.pollution })
+        const result = helpers.formatCities(cities, weathers, pollutions)
+        client.setex(cityname, 24 * 60 * 3, JSON.stringify(result))
+        return res.status(200).send({
+          error: false,
+          message: 'Weather data for nearby cities from the server',
+          data: result
+        })
+      })
     })
   } catch (error) {
     console.log(error)
   }
 })
-
-function formatCities (cities, weathers, pollutions) {
-  const newVar = {
-    type: 'FeatureCollection',
-    features: [],
-    weather: [],
-    pollution: []
-  }
-  cities.forEach(function (city, index) {
-    // console.log(city)
-    const feature = {
-      cityid: undefined, // getCityId({ lon: city["lon"], lat: city["lat"] })
-      geometry: {
-        type: 'Point',
-        coordinates: [city.lon, city.lat]
-      },
-      type: 'Feature',
-      properties: {
-        category: 'Town',
-        hours: '--',
-        description: '--',
-        name: city.name,
-        phone: '--',
-        place_id: '011101101'
-      }
-    }
-    newVar.features.push(feature)
-    weathers[index].cityName = city.name
-    pollutions[index].cityName = city.name
-  })
-
-  newVar.weather = weathers
-  newVar.pollution = pollutions
-  return newVar
-}
 
 module.exports = router

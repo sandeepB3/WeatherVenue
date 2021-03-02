@@ -11,7 +11,7 @@ This project is no exception; Check a walk-through presentation of the code.
 
 Please prefer discussions page before opening a new issue unless it is an obvious bug or enhancement.
 
-https://github.com/bacloud14/WeatherVenue/discussions/29
+https://github.com/bacloud14/WeatherVenue/discussions/33
 
 Please see open issues for a specific issue and do not hesitate to open any new issue (like better code, readability, modularity and best practice, performance, better UI or even functionality enhancements...).
 

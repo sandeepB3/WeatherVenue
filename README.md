@@ -7,28 +7,9 @@ It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-
 
 # Deployment
 
-- Replace with your keys (use wisely. Do not stuck in a loop and do not publicly push on GITHUB x))
-- Accept origins like (localhost:3001) in Google developers console map API.
-- Install and run Redis server.
-- Configure .env file with the followings:
-```
-    - NODE_ENV=dev
-    - PORT=3000
-    - REDIS_PORT=####
-    - OPENWEATHERMAP_API_KEY=####
-    - GOOGLE_MAPS_API_KEY=GOOGLE_MAPS_API_KEY
-    - HONEYPOT_KEY=####
-```
+[SETUP](https://github.com/bacloud14/WeatherVenue/discussions/33)
 
-Replace GOOGLE_MAPS_API_KEY also in client end in `views/head.ejs `
-
-`<script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&callback=initMap&libraries=places,visualization&v=weekly"`
-
-Then run:
-
-`npm install` which installs dependencies.
-
-`npm start` which starts at port 3000 normally.
+[WALK-THROUGH](https://github.com/bacloud14/WeatherVenue/blob/master/CONTRIBUTING/CONTRIBUTING.pdf)
 
 # A Glimpse of UI
 

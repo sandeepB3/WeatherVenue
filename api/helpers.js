@@ -32,6 +32,14 @@ function getCityId (coord) {
   }
 }
 
+async function fetchWeather0 (westLng, northLat, eastLng, southLat, mapZoom) {
+  return new Promise(async (resolve, reject) => {
+    const openWeatherMapAPI = `https://api.openweathermap.org/data/2.5/box/city?bbox=${westLng},${northLat},${eastLng},${southLat},${mapZoom}&cluster=yes&format=json&APPID=${OPENWEATHERMAP_API_KEY}`
+    const body0 = await api({ url: openWeatherMapAPI, method: 'get' })
+    resolve(body0)
+  })
+}
+
 async function fetchWeather (city, language) {
   return new Promise(async (resolve, reject) => {
     const APIUrlWeather = `https://api.openweathermap.org/data/2.5/onecall?lat=${city.lat}&lon=${city.lon}&lang=${language}&exclude=hourly,minutely,hourly&units=metric&appid=${OPENWEATHERMAP_API_KEY}`
@@ -81,4 +89,5 @@ function formatCities (cities, weathers, pollutions) {
 
 exports.getCityId = getCityId
 exports.fetchWeather = fetchWeather
+exports.fetchWeather0 = fetchWeather0
 exports.formatCities = formatCities

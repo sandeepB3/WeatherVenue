@@ -4,7 +4,7 @@ const axios = require('axios')
 const redis = require('redis')
 const nearbyCities = require('nearby-cities')
 
-const router = express.Router()
+const routerAPI = express.Router()
 const redisPort = process.env.REDIS_PORT
 const OPENWEATHERMAP_API_KEY = process.env.OPENWEATHERMAP_API_KEY
 // make a connection to the local instance of redis
@@ -13,23 +13,7 @@ client.on('error', (error) => {
   console.error(error)
 })
 
-let pass = ''
-if (process.env.NODE_ENV === 'dev') {
-  pass = process.env.PASS
-}
-router.get(`/${pass}`, function rootHandler (req, res) {
-  res.render('index', { key: process.env.GOOGLE_MAPS_API_KEY })
-})
-
-router.get('/ar', function rootHandler (req, res) {
-  res.render('index_ar', { key: process.env.GOOGLE_MAPS_API_KEY })
-})
-
-router.get('/weather_map_view', function rootHandler (req, res) {
-  res.render('weather_map_view', { key: process.env.GOOGLE_MAPS_API_KEY })
-})
-
-router.get('/weatherMap/:url', function rootHandler (req, res) {
+routerAPI.get('/weatherMap/:url', function rootHandler (req, res) {
   if (!req.params.url) {
     return res.status(400).send({
       error: true,
@@ -40,22 +24,22 @@ router.get('/weatherMap/:url', function rootHandler (req, res) {
   const urlParams = JSON.parse(req.params.url)
   let westLng, northLat, eastLng, southLat, mapZoom
   ({ westLng, northLat, eastLng, southLat, mapZoom } = urlParams)
-  const openWeatherMapAPI = `https://api.openweathermap.org/data/2.5/box/city?bbox=${westLng},${northLat},${eastLng},${southLat},${mapZoom}&cluster=yes&format=json&APPID=${OPENWEATHERMAP_API_KEY}`
-  axios.get(openWeatherMapAPI).then(function (response) {
-    // handle success
+  const action = helpers.fetchWeather0(westLng, northLat, eastLng, southLat, mapZoom)
+  Promise.resolve(action).then(function (response) {
     return res.status(200).send({
       error: false,
-      message: `Weather data for weather map`,
+      message: 'Weather data for weather map',
       data: response.data
     })
-  }).catch(function (error) {
-    console.log(error)
-    return res.status(400).send({
-      error: true,
-      message: 'Bad request',
-      data: 'Bad request'
-    })
   })
+  // .catch(function (error) {
+  //   console.log(error)
+  //   return res.status(400).send({
+  //     error: true,
+  //     message: 'Bad request',
+  //     data: 'Bad request'
+  //   })
+  // })
 })
 
 const helpers = require('./helpers')
@@ -68,7 +52,7 @@ const reqSchema = Joi.object({
   language: Joi.string().min(2).max(2).required()
 })
 
-router.get('/nearby/:city', function rootHandler (req, res) {
+routerAPI.get('/nearby/:city', function rootHandler (req, res) {
   try {
     if (!req.params.city) {
       return res.status(400).send({
@@ -131,4 +115,4 @@ router.get('/nearby/:city', function rootHandler (req, res) {
   }
 })
 
-module.exports = router
+module.exports = routerAPI

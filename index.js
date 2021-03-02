@@ -53,7 +53,13 @@ app.use(express.static(__dirname + '/public/', {
     }
   }
 }))
-app.use(require('./api/routes'))
+
+let pass = ''
+if (process.env.NODE_ENV === 'dev') {
+  pass = process.env.PASS
+}
+app.use(`/${pass}`, require('./api/routes_api'))
+app.use(`/${pass}`, require('./api/routes_ui'))
 
 const dns = require('dns')
 app.use(function (req, res, next) {

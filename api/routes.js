@@ -18,15 +18,15 @@ if (process.env.NODE_ENV === 'dev') {
   pass = process.env.PASS
 }
 router.get(`/${pass}`, function rootHandler (req, res) {
-  res.render('index')
+  res.render('index', { key: process.env.GOOGLE_MAPS_API_KEY })
 })
 
 router.get('/ar', function rootHandler (req, res) {
-  res.render('index_ar')
+  res.render('index_ar', { key: process.env.GOOGLE_MAPS_API_KEY })
 })
 
 router.get('/weather_map_view', function rootHandler (req, res) {
-  res.render('weather_map_view')
+  res.render('weather_map_view', { key: process.env.GOOGLE_MAPS_API_KEY })
 })
 
 router.get('/weatherMap/:url', function rootHandler (req, res) {

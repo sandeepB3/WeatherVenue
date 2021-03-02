@@ -16,7 +16,7 @@ gulp.task('compress_js', function () {
   )
 })
 
-const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-imagemin')
 
 gulp.task('compress_images', async function () {
   gulp.src('src/img/*')
@@ -26,7 +26,7 @@ gulp.task('compress_images', async function () {
 
 const gzip = require('gulp-gzip')
 
-gulp.task('compress', function() {
+gulp.task('compress', function () {
   gulp.src('./files/*')
     .pipe(gzip())
     .pipe(gulp.dest('data/'))

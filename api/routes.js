@@ -13,7 +13,11 @@ client.on('error', (error) => {
   console.error(error)
 })
 
-router.get('/', function rootHandler (req, res) {
+let pass = ''
+if (process.env.NODE_ENV === 'dev') {
+  pass = process.env.PASS
+}
+router.get(`/${pass}`, function rootHandler (req, res) {
   res.render('index')
 })
 

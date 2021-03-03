@@ -129,6 +129,7 @@ ul {
   width: 80%;
   margin: 0px auto;
   height: 60%;
+  z-index: 10;
 }
 
 .container {

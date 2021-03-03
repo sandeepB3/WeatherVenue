@@ -132,6 +132,11 @@ ul {
   z-index: 10;
 }
 
+@media only screen and (max-device-width: 480px) {
+  .map_wrapper {
+    width: 100%;
+  }
+}
 .container {
   position: relative;
   background: rgba(192, 247, 244, 0.616);
@@ -260,7 +265,7 @@ div.featured_pictures{
 }
 
 .row {
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 }
 

@@ -438,8 +438,8 @@ function nearbyRequest (place) {
     initMap()
     populateHeatMap(0)
     _hideLoading() // Unblock page
-    const googleTemplate = _adsHolder('Google')
-    __id('forecast-items').insertAdjacentHTML('beforeend', googleTemplate)
+    // const googleTemplate = _adsHolder('Google')
+    // __id('forecast-items').insertAdjacentHTML('beforeend', googleTemplate)
   }
   request.send()
 }

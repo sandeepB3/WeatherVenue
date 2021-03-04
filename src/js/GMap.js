@@ -560,6 +560,22 @@ function populateHeatMap (day) {
   return true
 }
 
+Array.range = function(from, to, step, prec) {
+  if (typeof from === 'number') {
+    const A = [from]
+    step = typeof step === 'number' ? Math.abs(step) : 1
+    if (!prec) {
+      prec = (from + step) % 1 ? String((from + step) % 1).length + 1 : 0
+    }
+    if (from > to) {
+      while (+(from -= step).toFixed(prec) >= to) A.push(+from.toFixed(prec))
+    } else {
+      while (+(from += step).toFixed(prec) <= to) A.push(+from.toFixed(prec))
+    }
+    return A
+  }
+}
+
 // Create and Update the HTML list of div cards holding a list of weather information for one city in a week
 // Fill __currentSpokenForecast with a transcript for Weather forecast
 // hueColors: calculated background color based on the current tempreture and all weather average
@@ -574,7 +590,8 @@ function renderForecastDays (dailies) {
   document.documentElement.style.backgroundImage = `url(https://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'}.png)`
   __id('forecast-items').innerHTML = ''
   const maxTemp = Math.max(...dailies.map((item) => { return item.temp.max }))
-  const minTemp = Math.max(...dailies.map((item) => { return item.temp.min }))
+  const minTemp = Math.min(...dailies.map((item) => { return item.temp.min }))
+  let colorScale
   dailies.forEach(function (period, co) {
     const d = new Date(0)
     d.setUTCSeconds(period.dt)
@@ -593,10 +610,11 @@ function renderForecastDays (dailies) {
     // const hue_ = ((maxTempF - minTemp) / (maxTemp - minTemp)) * 240
     const hueMax = (1.0 - (maxTempF / maxTemp)) * 240
     const hueMin = (1.0 - (minTempF / maxTemp)) * 240
+    colorScale = colorScale ? colorScale : Array.range(minTemp, maxTemp, 0.5, 1).map(step => { return `hsl( ${((1.0 - (step / maxTemp)) * 240)} , 90%, 80%)` })
     let hueColors = `; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background: linear-gradient(70deg, hsl( ${hueMin} , 90%, 80%) 40%, hsl( ${hueMax} , 90%, 80%) 40%)`
     let currentMarkedId = 'city-' + currentMarked.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '-').toLowerCase()
     currentMarkedId = `checkId${currentMarkedId}`
-    const template = _tempHolder(hueColors, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, wind_speed, co, currentMarkedId)
+    const template = _tempHolder(hueColors, colorScale, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, wind_speed, co, currentMarkedId)
     __id('forecast-items').insertAdjacentHTML('afterbegin', template)
   })
 

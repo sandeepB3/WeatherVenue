@@ -5,13 +5,13 @@ function _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2) 
         <div class="card" style="${aqiColor}">
             <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId20" role="button" aria-expanded="true">${aqiInterpretation[aqi]}</h4>
             <table style="width:100%">
-            <tr>
-                <th style= 'background-color: #4C5273; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                <th style= 'background-color: #F2E96B; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                <th style= 'background-color: #F2CA50; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                <th style= 'background-color: #F2A03D; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                <th style= 'background-color: #A67041; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-            </tr>
+                <tr>
+                    <th style= 'background-color: #4C5273; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                    <th style= 'background-color: #F2E96B; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                    <th style= 'background-color: #F2CA50; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                    <th style= 'background-color: #F2A03D; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                    <th style= 'background-color: #A67041; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                </tr>
             </table>
             <div class="card-body">
                 <div class="collapse show" id="collapseId20">
@@ -26,11 +26,16 @@ function _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2) 
     `)
 }
 
-function _tempHolder(hueColor, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
+function _tempHolder(hueColor, colorScale, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
+  const heads = colorScale.map(color => { return `<th style= 'background-color: ${color}; font-size: xx-small'>.</th>` })
+  console.log(heads)
   return (`
     <div class="col-md-3" id="${currentMarkedId}-${co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
         <div class="card" style="${hueColor}">
             <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${co}" role="button" aria-expanded="true">${dayName}\n${ISODate}</h4>
+            <table style="width:100%">
+                <tr> ${heads} </tr>
+            </table>
             <!--<h5 class="card-title text-center">${ISODate}</h5>-->
             <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${iconSrc}">
             <div class="card-body">

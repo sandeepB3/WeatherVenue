@@ -26,16 +26,21 @@ function _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2) 
     `)
 }
 
-function _tempHolder(hueColor, colorScale, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
-  const heads = colorScale.map(color => { return `<th style= 'background-color: ${color}; font-size: xx-small'>.</th>` })
-  console.log(heads)
+function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
+  console.log(stepMin, stepMax)
+  const heads = colorScale.map((color, idx) => {
+    if (stepMin === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐁ</th>` }
+    else if (stepMax === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐃ</th>` }
+    else { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;</th>` }
+  }).join('')
+
   return (`
     <div class="col-md-3" id="${currentMarkedId}-${co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
         <div class="card" style="${hueColor}">
-            <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${co}" role="button" aria-expanded="true">${dayName}\n${ISODate}</h4>
             <table style="width:100%">
-                <tr> ${heads} </tr>
+                <tr>${heads}</tr>
             </table>
+            <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${co}" role="button" aria-expanded="true">${dayName}\n${ISODate}</h4>
             <!--<h5 class="card-title text-center">${ISODate}</h5>-->
             <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${iconSrc}">
             <div class="card-body">

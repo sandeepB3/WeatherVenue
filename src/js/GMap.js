@@ -106,7 +106,9 @@ function initMap () {
   if (!map) {
     map = new google.maps.Map(__id('map'), {
       center: center,
-      zoom: 10
+      zoom: 10,
+      rotateControl: false,
+      mapTypeControl: false
     })
   } else {
     // initMap() being called a second time, clear earlier data

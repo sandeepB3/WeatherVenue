@@ -26,17 +26,17 @@
     command: 'أدخل موقعًا'}); %>
       
   <div class="container-fluid">
-    <h3 id="location">ستظهر هنا تنبآت الطقس لمدة أسبوع. يمكنك اختيار المدن المجاورة من الخريطة</h3>
+    <h3 class="section_head" id="location">ستظهر هنا تنبآت الطقس لمدة أسبوع. يمكنك اختيار المدن المجاورة من الخريطة</h3>
     <p id="date"></p>
     <div class="row" id="forecast-items"></div>
   </div>
 
   <div class="container-fluid">
-    <h3 id="gallery">مقارنة التنبآت</h3>
+    <h3 class="section_head">مقارنة التنبآت</h3>
     <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
   </div>
 
-  <h3 id="gallery">ستظهر أيضًا الصورة المحلية للمدينة الرئيسية.</h3>
+  <h3 class="section_head" id="gallery">ستظهر أيضًا الصورة المحلية للمدينة الرئيسية.</h3>
   <section id="imgGrid">
   </section>
   <%- include('partials/footer'); %>

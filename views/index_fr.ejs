@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <%- include('head', 
+      { version: 'bootstrap' , centerLocation: 'paris' , lang: 'fr' , title: 'Bienvenue sur WeatherVenue',
+        description: 'WeatherVenue vous permet de trouver les meilleurs endroits à visiter dans votre entourage; Afin de passer un hiver au chaud ou trouver des destinations estivales pour garder la tête froide.',
+      });
+  %>
+</head>
+
+<body>
+  <div id="cookies-eu-banner" style="display: none;">
+    En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies par Google Analytics à des fins statistiques.
+    <a href="https://www.cookielaw.org/google-analytics-eu-cookie-law/" id="cookies-eu-more">Lire plus</a>
+    <button id="cookies-eu-reject">Refuser</button>
+    <button id="cookies-eu-accept">Accepter</button>
+  </div>
+  <div id="spinner-back"></div>
+  <div id="spinner-front">
+    <img src="./img/loading.gif" /><br>
+  </div>
+  <%- include('partials/nav_bar', { lang: 'fr' }); %>
+  <%- include('partials/map', { command: 'Entrez un endroit' }); %>
+
+
+  <div class="container-fluid">
+    <h3 class="section_head" id="location">Recherchez votre ville pour afficher les prévisions des prochains jours. </h3>
+    <p id="date"></p>
+    <div class="row" id="forecast-items"></div>
+  </div>
+
+  <div class="container-fluid">
+    <h3 class="section_head">Comparaison météo.</h3>
+    <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="pull-right">
+        <button type="button" class="btn btn-outline-warning" onclick="emptyIt()">Rafraichir</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section_head" id="gallery">Des images de la ville principale apparaîtront également. </h3>
+  <section id="imgGrid">
+
+  </section>
+  <!-- <script defer src="http://localhost:8080/js/commento.js"></script>
+  <div id="commento"></div> -->
+  <%- include('partials/footer'); %>
+
+</body>
+<%- include('partials/after_body'); %>
+
+</html>

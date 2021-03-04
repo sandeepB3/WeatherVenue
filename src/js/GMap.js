@@ -486,7 +486,7 @@ function showAlertsList (currObj) {
   // If the panel already exists, use it. Else, create it and add to the page.
   if (__id('panel')) {
     panel = __id('panel')
-    // panel.style = 'overflow: scroll;'
+    panel.style = 'overflow-y: scroll;'
     // If panel is already open, close it
     if (panel.classList.contains('open')) {
       panel.classList.remove('open')
@@ -582,11 +582,12 @@ function renderForecastDays (dailies) {
     const maxTempF = period.temp.max || 'N/A'
     const minTempF = period.temp.min || 'N/A'
     // const averageTemp = (maxTempF + minTempF) / 2
-    const description = period.weather[0].description || 'N/A'
+    let description = period.weather[0].description || 'N/A'
     let sunrise, sunset, humidity, pressure, wind_speed
     ({ sunrise, sunset, humidity, pressure, wind_speed } = period)
     sunrise = new Date(sunrise * 1000).toLocaleTimeString('en-GB').slice(0, 5)
     sunset = new Date(sunset * 1000).toLocaleTimeString('en-GB').slice(0, 5)
+    description = description.charAt(0).toUpperCase() + description.slice(1)
     // const hue_ = ((maxTempF - minTemp) / (maxTemp - minTemp)) * 240
     const hueMax = (1.0 - (maxTempF / maxTemp)) * 240
     const hueMin = (1.0 - (minTempF / maxTemp)) * 240

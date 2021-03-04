@@ -56,6 +56,7 @@ body[data-theme="dark"] {
 
 #panel {
   position: relative;
+  height: 90%;
   top: 10%;
   left: 0%;
   z-index: -6;
@@ -244,7 +245,7 @@ div.featured_pictures{
   color: #6c757d;
 }
 
-#location, #gallery {
+#location, #gallery, .section_head {
   margin: 0 auto;
   padding: 20px;
   text-align: center;

@@ -14,6 +14,10 @@ routerUI.get('/ar', function rootHandler (req, res) {
   res.render('index_ar', { key: process.env.GOOGLE_MAPS_API_KEY, pass: pass })
 })
 
+routerUI.get('/fr', function rootHandler (req, res) {
+  res.render('index_fr', { key: process.env.GOOGLE_MAPS_API_KEY, pass: pass })
+})
+
 routerUI.get('/weather_map_view', function rootHandler (req, res) {
   res.render('weather_map_view', { key: process.env.GOOGLE_MAPS_API_KEY, pass: pass })
 })

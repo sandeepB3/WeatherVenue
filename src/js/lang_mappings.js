@@ -20,6 +20,16 @@ function _weekdaysLangs(language) {
         'الجمعة',
         'السبت'
       ]
+    case 'fr':
+      return [
+        'Dimanche',
+        'Lundi',
+        'Mardi',
+        'Mercredi',
+        'Jeudi',
+        'Vendredi',
+        'Samedi'
+      ]
     default:
       throw new Error('Language mapping error in _weekdayNames with language=', language)
   }
@@ -43,6 +53,14 @@ function _aqiLangs(language) {
         4: 'جودة الهواء: ضعيفة',
         5: 'جودة الهواء: ضعيفة جدا'
       }
+    case 'fr':
+      return {
+        1: 'Qualité de l\'air: bonne',
+        2: 'Qualité de l\'air: passable',
+        3: 'Qualité de l\'air: modérée',
+        4: 'Qualité de l\'air: médiocre',
+        5: 'Qualité de l\'air: très mauvaise'
+      }
     default:
       throw new Error('Language mapping error in _aqiInterpretation with language=', language)
   }
@@ -58,6 +76,10 @@ function _picturesLangs(language) {
     case 'ar':
       success = (place) => `صور منطقة ${place}`
       fail = (place) => `لا توجد صور لمنطقة ${place}`
+      return [success, fail]
+    case 'fr':
+      success = (place) => `Photos locales de ${place}`
+      fail = (place) => `Il n'y a pas de photos trouvées pour ${place}`
       return [success, fail]
     default:
       throw new Error('Language mapping error in _picturesLangs with language=', language)

@@ -61,6 +61,16 @@ if (process.env.NODE_ENV === 'dev') {
 app.use(`/${pass}`, require('./api/routes_api'))
 app.use(`/${pass}`, require('./api/routes_ui'))
 
+if (process.env.NODE_ENV === 'prod') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    } else {
+      next()
+    }
+  })
+}
+
 const dns = require('dns')
 app.use(function (req, res, next) {
   let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress

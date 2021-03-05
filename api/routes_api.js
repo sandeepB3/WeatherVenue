@@ -115,4 +115,63 @@ routerAPI.get('/nearby/:city', function rootHandler (req, res) {
   }
 })
 
+// Import dependencies
+const fs = require('fs')
+const { google } = require('googleapis')
+
+const service = google.sheets('v4')
+const credentials = require('../creds/google-credentials.json')
+
+// Configure auth client
+const authClient = new google.auth.JWT(
+  credentials.client_email,
+  null,
+  credentials.private_key.replace(/\\n/g, '\n'),
+  ['https://www.googleapis.com/auth/spreadsheets']
+);
+
+routerAPI.get('/answers', async function rootHandler (req, res) {
+  try {
+    // Authorize the client
+    const token = await authClient.authorize()
+    // Set the client credentials
+    authClient.setCredentials(token)
+    // Get the rows
+    const res = await service.spreadsheets.values.get({
+      auth: authClient,
+      spreadsheetId: '1ikPH-WrhC3ogEsHMygYhdkka8cNhRmYVPOkOYYyoQc4',
+      range: 'A:D'
+    })
+    // All of the answers
+    const answers = []
+    // Set rows to equal the rows
+    const rows = res.data.values
+    // Check if we have any data and if we do add it to our answers array
+    if (rows.length) {
+      // Remove the headers
+      rows.shift()
+      // For each row
+      for (const row of rows) {
+        answers.push({
+          timeStamp: row[0],
+          answer: row[1],
+          name: row[2],
+          email: row[3]
+        })
+      }
+    } else {
+      console.log('No data found.')
+    }
+    // Saved the answers
+    fs.writeFileSync('answers.json', JSON.stringify(answers), function (err, file) {
+      if (err) throw err
+      console.log('Saved!')
+    })
+  } catch (error) {
+    // Log the error
+    console.log(error)
+  }
+  return res.status(200).send()
+})
+
 module.exports = routerAPI

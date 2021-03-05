@@ -130,7 +130,9 @@ const authClient = new google.auth.JWT(
   ['https://www.googleapis.com/auth/spreadsheets']
 );
 
-routerAPI.get('/answers', async function rootHandler (req, res) {
+routerAPI.get('/experiences', async function rootHandler (req, res) {
+  // All of the answers
+  const answers = []
   try {
     // Authorize the client
     const token = await authClient.authorize()
@@ -142,8 +144,6 @@ routerAPI.get('/answers', async function rootHandler (req, res) {
       spreadsheetId: '1ikPH-WrhC3ogEsHMygYhdkka8cNhRmYVPOkOYYyoQc4',
       range: 'A:D'
     })
-    // All of the answers
-    const answers = []
     // Set rows to equal the rows
     const rows = res.data.values
     // Check if we have any data and if we do add it to our answers array
@@ -171,7 +171,11 @@ routerAPI.get('/answers', async function rootHandler (req, res) {
     // Log the error
     console.log(error)
   }
-  return res.status(200).send()
+  return res.render('travel_experiences', {
+    error: false,
+    message: 'User experiences list',
+    data: answers
+  })
 })
 
 module.exports = routerAPI

@@ -7,6 +7,7 @@
   <title>Travel experiences</title>
   <%- include('html_dependencies/bootstrap'); %>
   <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" type="text/css" href="../css/beautifuck.css" />
   <script src="../js/libraries/cookies-eu-banner.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js" integrity="sha512-SGPHIoS+NsP1NUL5RohNpDs44JlF36tXLN6H3Cw+EUyenEc5zPXWqfw9D+xmvR00QYUYewQIJQ6P5yH82Vw6Fg==" crossorigin="anonymous"></script>
   <style>
@@ -64,7 +65,16 @@
       </div>
     <% }) %>
   </div>
-
+  <p class="text-center">
+    <a class="btn btn-light" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Share your trip now !
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://docs.google.com/forms/d/e/1FAIpQLSdfYenViN2OEAU_rxkx3fmgOILaX2-zmFCDk8tay43DL5Cs7w/viewform?embedded=true" width="640" height="953" marginheight="0" marginwidth="0">Chargement…</iframe>
+    </div>
+  </div>
   <%- include('partials/footer'); %>
 </body>
 <%- include('partials/after_body'); %>

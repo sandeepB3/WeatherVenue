@@ -50,19 +50,18 @@
 
 <body>
   <%- include('partials/nav_bar', { lang: 'en' }); %>
+  <h3 class="section_head">Share Your Travel Experience, today !</h3>
   <div class="container mt-5">
     <% data.reverse().forEach(function(values){ %>
-      <a href="https://codepen.io/jaynewey" class="text-dark text-decoration-none">
-        <div class="post-about mb-4">
-          <h2>CodePen</h2>
-          <div>
-            <span class="post-tag"><%= values.name %></span>
-          </div>
-          <div class="mb-1 text-muted"><%= values.timeStamp %></div>
-          <p><%= values.answer %></p>
-          <small class="text-muted">Last updated: 1st June 2020</small>
+      <div class="post-about mb-4">
+        <h2><%= values.title %></h2>
+        <div>
+          <span class="post-tag"><%= values.name %></span>
         </div>
-      </a>
+        <div class="mb-1 text-muted"><%= values.timeStamp %></div>
+        <p><%= values.answer %></p>
+        <small class="text-muted">Last updated: 1st June 2020</small>
+      </div>
     <% }) %>
   </div>
 

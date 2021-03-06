@@ -115,8 +115,6 @@ routerAPI.get('/nearby/:city', function rootHandler (req, res) {
   }
 })
 
-// Import dependencies
-const fs = require('fs')
 const { google } = require('googleapis')
 
 const service = google.sheets('v4')
@@ -128,48 +126,58 @@ const authClient = new google.auth.JWT(
   null,
   credentials.private_key.replace(/\\n/g, '\n'),
   ['https://www.googleapis.com/auth/spreadsheets']
-);
+)
 
 routerAPI.get('/experiences', async function rootHandler (req, res) {
   // All of the answers
   const answers = []
-  try {
-    // Authorize the client
-    const token = await authClient.authorize()
-    // Set the client credentials
-    authClient.setCredentials(token)
-    // Get the rows
-    const res = await service.spreadsheets.values.get({
-      auth: authClient,
-      spreadsheetId: '1ikPH-WrhC3ogEsHMygYhdkka8cNhRmYVPOkOYYyoQc4',
-      range: 'A:D'
+  if (process.env.NODE_ENV === 'dev') {
+    answers.push({
+      timeStamp: '06/03/2021',
+      answer: 'I went from point A to point B and it was fun.',
+      name: 'pseudoname',
+      title: 'Fantastic journey in Mars!'
     })
-    // Set rows to equal the rows
-    const rows = res.data.values
-    // Check if we have any data and if we do add it to our answers array
-    if (rows.length) {
-      // Remove the headers
-      rows.shift()
-      // For each row
-      for (const row of rows) {
-        answers.push({
-          timeStamp: row[0],
-          answer: row[1],
-          name: row[2],
-          email: row[3]
-        })
+    answers.push({
+      timeStamp: '07/03/2021',
+      answer: 'WeatherVenue helped me find a place for a sunny day',
+      name: 'pseudoname2',
+      title: 'Fabulous warm day in January'
+    })
+  } else {
+    try {
+      // Authorize the client
+      const token = await authClient.authorize()
+      // Set the client credentials
+      authClient.setCredentials(token)
+      // Get the rows
+      const res = await service.spreadsheets.values.get({
+        auth: authClient,
+        spreadsheetId: '1ikPH-WrhC3ogEsHMygYhdkka8cNhRmYVPOkOYYyoQc4',
+        range: 'A:E'
+      })
+      // Set rows to equal the rows
+      const rows = res.data.values
+      // Check if we have any data and if we do add it to our answers array
+      if (rows.length) {
+        // Remove the headers
+        rows.shift()
+        // For each row
+        for (const row of rows) {
+          answers.push({
+            timeStamp: row[0].slice(0, 10),
+            answer: row[1],
+            name: row[2],
+            title: row[4]
+          })
+        }
+      } else {
+        console.log('No data found.')
       }
-    } else {
-      console.log('No data found.')
+    } catch (error) {
+      // Log the error
+      console.log(error)
     }
-    // Saved the answers
-    fs.writeFileSync('answers.json', JSON.stringify(answers), function (err, file) {
-      if (err) throw err
-      console.log('Saved!')
-    })
-  } catch (error) {
-    // Log the error
-    console.log(error)
   }
   return res.render('travel_experiences', {
     error: false,

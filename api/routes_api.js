@@ -118,15 +118,18 @@ routerAPI.get('/nearby/:city', function rootHandler (req, res) {
 const { google } = require('googleapis')
 
 const service = google.sheets('v4')
-const credentials = require('../creds/google-credentials.json')
-
-// Configure auth client
-const authClient = new google.auth.JWT(
-  credentials.client_email,
-  null,
-  credentials.private_key.replace(/\\n/g, '\n'),
-  ['https://www.googleapis.com/auth/spreadsheets']
-)
+let authClient
+let credentials
+if (process.env.NODE_ENV === 'prod') {
+  credentials = require('../google-credentials.json')
+  // Configure auth client
+  authClient = new google.auth.JWT(
+    credentials.client_email,
+    null,
+    credentials.private_key.replace(/\\n/g, '\n'),
+    ['https://www.googleapis.com/auth/spreadsheets']
+  )
+}
 
 routerAPI.get('/experiences', async function rootHandler (req, res) {
   // All of the answers

@@ -5,7 +5,7 @@ const terser = require('gulp-terser')
 const pipeline = require('readable-stream').pipeline
 const rev = require('gulp-rev')
 
-gulp.task('compress_js', function () {
+gulp.task('compress_js', async function () {
   gulp.src(['src/js/js_variables.js', 'src/js/lang_mappings.js', 'src/js/html_holders.js', 'src/js/accessibility.js', 'src/js/GMap.js'])
     .pipe(sourcemaps.init())
     .pipe(concat({ path: 'all.js', cwd: '' }))

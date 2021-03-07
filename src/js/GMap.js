@@ -415,57 +415,41 @@ function configURLsControls (marker) {
  */
 function nearbyRequest (place) {
   _showLoading() // Block page while loading
-  var cache = _getWithExpiry('response_' + place.name)
-  if (cache && cache.length > 0) {
-    currObj = new CurrentList(cache)
-    __id('location').innerHTML = currObj.location
-    renderForecastDays(currObj.dailies)
-    initMap()
-    _hideLoading() // Unblock page
-    return
-  }
-  const request = new XMLHttpRequest()
   const requestObject = JSON.stringify({
     lat: place.geometry.location.lat(),
     lng: place.geometry.location.lng(),
     cityname: place.name,
     language: language
   })
-  request.open('GET', 'nearby/' + requestObject)
-  request.responseType = 'json'
-  request.onload = function () {
-    currObj = new CurrentList(request.response.data)
-    _setWithExpiry('response_' + place.name, currObj.currentList)
+  fetch('nearby/' + requestObject, { localCache: true, cacheTTL: 5 }).then(function (response) {
+    return response.json()
+  }).then(function (data) {
+    currObj = new CurrentList(data.data)
     __id('location').innerHTML = currObj.location
     renderForecastDays(currObj.dailies)
     initMap()
     populateHeatMap(0)
     _hideLoading() // Unblock page
-    // const googleTemplate = _adsHolder('Google')
-    // __id('forecast-items').insertAdjacentHTML('beforeend', googleTemplate)
-  }
-  request.send()
+  })
 }
 // Same as nearbyRequest()
 function nearbyGeolocatedRequest (place) {
   _showLoading() // Block page while loading
-  const request = new XMLHttpRequest()
   const requestObject = JSON.stringify({
     lat: place.lat,
     lng: place.lng,
     cityname: place.name,
     language: language
   })
-  request.open('GET', 'nearby/' + requestObject)
-  request.responseType = 'json'
-  request.onload = function () {
-    currObj = new CurrentList(request.response.data)
+  fetch('nearby/' + requestObject, { localCache: true, cacheTTL: 5 }).then(function (response) {
+    return response.json()
+  }).then(function (data) {
+    currObj = new CurrentList(data.data)
     __id('location').innerHTML = currObj.location
     renderForecastDays(currObj.dailies)
     initMap()
     _hideLoading() // Unblock page
-  }
-  request.send()
+  })
 }
 
 // Create an HTML panel containing weather alerts for all current cities

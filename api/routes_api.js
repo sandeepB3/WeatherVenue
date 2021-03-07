@@ -1,3 +1,4 @@
+const helpers = require('./helpers')
 const express = require('express')
 const Joi = require('joi')
 const axios = require('axios')
@@ -41,8 +42,6 @@ routerAPI.get('/weatherMap/:url', function rootHandler (req, res) {
   //   })
   // })
 })
-
-const helpers = require('./helpers')
 
 let language = 'en'
 const reqSchema = Joi.object({
@@ -131,13 +130,6 @@ if (process.env.NODE_ENV === 'prod') {
   )
 }
 
-const path = require('path')
-const fs = require('fs')
-let rawdata0 = fs.readFileSync(path.join(__dirname, '../public/js/rev-manifest.json'))
-let mappings0 = (JSON.parse(rawdata0))
-let rawdata = fs.readFileSync(path.join(__dirname, '../public/js/libraries/rev-manifest.json'))
-let mappings = (JSON.parse(rawdata))
-
 routerAPI.get('/experiences', async function rootHandler (req, res) {
   // All of the answers
   const answers = []
@@ -193,8 +185,8 @@ routerAPI.get('/experiences', async function rootHandler (req, res) {
     error: false,
     message: 'User experiences list',
     data: answers,
-    dependencies: mappings,
-    scripts: mappings0
+    dependencies: helpers.mappings,
+    scripts: helpers.mappings0
   })
 })
 

@@ -87,6 +87,11 @@ function formatCities (cities, weathers, pollutions) {
   return newVar
 }
 
+const mappings0 = (JSON.parse(fs.readFileSync(path.join(__dirname, '../public/js/rev-manifest.json'))))
+const mappings = (JSON.parse(fs.readFileSync(path.join(__dirname, '../public/js/libraries/rev-manifest.json'))))
+
+exports.mappings0 = mappings0
+exports.mappings = mappings
 exports.getCityId = getCityId
 exports.fetchWeather = fetchWeather
 exports.fetchWeather0 = fetchWeather0

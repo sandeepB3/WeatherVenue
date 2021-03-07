@@ -301,6 +301,7 @@ div.featured_pictures{
   /* other styles goes here... */
   display: inline-block;
   vertical-align: top;
+  font-size: smaller;
 }
 
 #imgGrid {

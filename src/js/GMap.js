@@ -108,7 +108,8 @@ function initMap () {
       center: center,
       zoom: 10,
       rotateControl: false,
-      mapTypeControl: false
+      mapTypeControl: false,
+      streetViewControl: false
     })
   } else {
     // initMap() being called a second time, clear earlier data

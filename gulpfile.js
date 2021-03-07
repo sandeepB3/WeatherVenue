@@ -3,17 +3,18 @@ const concat = require('gulp-concat')
 const sourcemaps = require('gulp-sourcemaps')
 const terser = require('gulp-terser')
 const pipeline = require('readable-stream').pipeline
+const rev = require('gulp-rev')
 
 gulp.task('compress_js', function () {
-  return pipeline(
-    gulp.src(['src/js/js_variables.js', 'src/js/lang_mappings.js', 'src/js/html_holders.js', 'src/js/accessibility.js', 'src/js/GMap.js']),
-    sourcemaps.init(),
-    concat('all.js'),
-    terser(),
-    sourcemaps.write('.'),
-    // uglify(),
-    gulp.dest('public/js/')
-  )
+  gulp.src(['src/js/js_variables.js', 'src/js/lang_mappings.js', 'src/js/html_holders.js', 'src/js/accessibility.js', 'src/js/GMap.js'])
+    .pipe(sourcemaps.init())
+    .pipe(concat({ path: 'all.js', cwd: '' }))
+    .pipe(terser())
+    .pipe(rev())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('public/js/'))
+    .pipe(rev.manifest())
+    .pipe(gulp.dest('public/js/'))
 })
 
 const imagemin = require('gulp-imagemin')
@@ -30,6 +31,17 @@ gulp.task('compress', function () {
   gulp.src('./files/*')
     .pipe(gzip())
     .pipe(gulp.dest('data/'))
+})
+
+const RevAll = require('gulp-rev-all')
+
+gulp.task('version_dependencies', function () {
+  gulp.src('public/js/libraries/*')
+    .pipe(gulp.dest('public/js/libraries/'))
+    .pipe(RevAll.revision({ hashLength: 10 }))
+    .pipe(gulp.dest('public/js/libraries/'))
+    .pipe(RevAll.manifestFile())
+    .pipe(gulp.dest('public/js/libraries/'))
 })
 
 // const ejs = require('gulp-ejs')

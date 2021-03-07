@@ -131,6 +131,13 @@ if (process.env.NODE_ENV === 'prod') {
   )
 }
 
+const path = require('path')
+const fs = require('fs')
+let rawdata0 = fs.readFileSync(path.join(__dirname, '../public/js/rev-manifest.json'))
+let mappings0 = (JSON.parse(rawdata0))
+let rawdata = fs.readFileSync(path.join(__dirname, '../public/js/libraries/rev-manifest.json'))
+let mappings = (JSON.parse(rawdata))
+
 routerAPI.get('/experiences', async function rootHandler (req, res) {
   // All of the answers
   const answers = []
@@ -185,7 +192,9 @@ routerAPI.get('/experiences', async function rootHandler (req, res) {
   return res.render('travel_experiences', {
     error: false,
     message: 'User experiences list',
-    data: answers
+    data: answers,
+    dependencies: mappings,
+    scripts: mappings0
   })
 })
 

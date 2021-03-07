@@ -21,10 +21,10 @@
   <div id="spinner-front">
     <img src="./img/loading.gif" /><br>
   </div>
-  <%- include('partials/nav_bar', { lang: 'ar' }); %>
-  <%- include('partials/map', { 
+  <%- include('partials/nav_bar', { lang: 'ar',pass : pass }); %>
+  <%- include('partials/map', {
     command: 'أدخل موقعًا'}); %>
-      
+
   <div class="container-fluid">
     <h3 class="section_head" id="location">ستظهر هنا تنبآت الطقس لمدة أسبوع. يمكنك اختيار المدن المجاورة من الخريطة</h3>
     <p id="date"></p>

@@ -1,7 +1,22 @@
+<% var enRoute = "/" , frRoute = "/fr", arRoute = "/ar" %>
+
+<% if(pass.length !== 0 ) { %>
+	<% enRoute = `/${pass}/` , arRoute = `/${pass}/ar`, frRoute = `/${pass}/fr` %>
+<% } %>
+
 <% if(lang=='ar'){ %>
-  <%- include('nav_bar_ar'); %>
-<% } else if(lang=='en'){ %>  
-  <%- include('nav_bar_en'); %>
-<% } else if(lang=='fr'){ %>  
-  <%- include('nav_bar_fr'); %>
+	<%- include('nav_bar_ar' , {
+		enRoute,
+		frRoute
+			}); %>
+<% } else if(lang=='en'){ %>
+	<%- include('nav_bar_en', {
+		frRoute ,
+		arRoute
+			}); %>
+<% } else if(lang=='fr'){ %>
+	<%- include('nav_bar_fr', {
+		enRoute ,
+		arRoute
+			}); %>
 <% } %>

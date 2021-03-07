@@ -35,9 +35,8 @@ gulp.task('compress', function () {
 
 const RevAll = require('gulp-rev-all')
 
-gulp.task('version_dependencies', function () {
-  gulp.src('public/js/libraries/*')
-    .pipe(gulp.dest('public/js/libraries/'))
+gulp.task('version_dependencies', async function () {
+  gulp.src('src/js/libraries/*')
     .pipe(RevAll.revision({ hashLength: 10 }))
     .pipe(gulp.dest('public/js/libraries/'))
     .pipe(RevAll.manifestFile())

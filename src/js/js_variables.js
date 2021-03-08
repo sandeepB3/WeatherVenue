@@ -326,7 +326,7 @@ function shareIt(card_id) {
         files: [file],
       }
       if(navigator.canShare && navigator.canShare(data)) {
-        navigator.share()
+        navigator.share(data)
       } else {
         console.log('cannot share ')
       }

@@ -27,7 +27,6 @@ function _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2) 
 }
 
 function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
-  console.log(stepMin, stepMax)
   const heads = colorScale.map((color, idx) => {
     if (stepMin === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐁ</th>` }
     else if (stepMax === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐃ</th>` }

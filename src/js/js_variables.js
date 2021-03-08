@@ -288,6 +288,15 @@ function drop(ev) {
   toBe.setAttribute('draggable', false)
   toBe.childNodes[1].firstElementChild.setAttribute('href', '')
   toBe.insertAdjacentHTML('afterbegin', title)
+  var button = document.createElement('button')
+  button.innerHTML = 'Download'
+  button.classList.add('btn-sm')
+  button.classList.add('btn-outline-warning')
+  button.onclick = function(){
+    shareIt(data + '_clone')
+    return false
+  };
+  toBe.appendChild(button)
   ev.target.appendChild(toBe)
 }
 
@@ -296,6 +305,18 @@ function emptyIt() {
   Array.prototype.forEach.call(elements, function(node) {
     node.parentNode.removeChild(node)
   })
+}
+
+function shareIt(card_id) {
+  console.log(card_id)
+  const dd = __id(card_id)
+  domtoimage.toJpeg(dd, { quality: 0.95 })
+    .then(function (dataUrl) {
+        var link = document.createElement('a');
+        link.download = 'weatherVenue-card.jpeg';
+        link.href = dataUrl;
+        link.click();
+    });
 }
 
 /**

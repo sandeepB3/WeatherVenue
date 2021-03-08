@@ -69,7 +69,7 @@
     showBanner: function () {
       var _this = this,
         getElementById = document.getElementById.bind(document),
-        banner = getElementById('cookies-eu-banner.9871edf43b'),
+        banner = getElementById('cookies-eu-banner.82770aed09'),
         rejectButton = getElementById('cookies-eu-reject'),
         acceptButton = getElementById('cookies-eu-accept'),
         moreLink = getElementById('cookies-eu-more'),
@@ -169,7 +169,7 @@
      * to specify their own transition effects
      */
     removeBanner: function (wait) {
-      var banner = document.getElementById('cookies-eu-banner.9871edf43b');
+      var banner = document.getElementById('cookies-eu-banner.82770aed09');
       banner.classList.add('cookies-eu-banner--before-remove');
       setTimeout (function() {
         if (banner && banner.parentNode) {

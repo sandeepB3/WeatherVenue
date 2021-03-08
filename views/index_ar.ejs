@@ -33,7 +33,11 @@
 
   <div class="container-fluid">
     <h3 class="section_head">مقارنة التنبآت</h3>
-    <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <div class="pull-right">
+        <button type="button" class="btn btn-outline-warning" onclick="emptyIt()">مسح</button>
+      </div>
+    </div>
   </div>
 
   <h3 class="section_head" id="gallery">ستظهر أيضًا الصورة المحلية للمدينة الرئيسية.</h3>

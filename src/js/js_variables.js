@@ -289,7 +289,7 @@ function drop(ev) {
   toBe.childNodes[1].firstElementChild.setAttribute('href', '')
   toBe.insertAdjacentHTML('afterbegin', title)
   var button = document.createElement('button')
-  button.innerHTML = 'Download'
+  button.innerHTML = 'Share'
   button.classList.add('btn-sm')
   button.classList.add('btn-outline-warning')
   button.onclick = function(){
@@ -310,13 +310,20 @@ function emptyIt() {
 function shareIt(card_id) {
   console.log(card_id)
   const dd = __id(card_id)
-  domtoimage.toJpeg(dd, { quality: 0.95 })
-    .then(function (dataUrl) {
-        var link = document.createElement('a');
-        link.download = 'weatherVenue-card.jpeg';
-        link.href = dataUrl;
-        link.click();
-    });
+  domtoimage.toBlob(dd)
+    .then(function (blob) {
+      const file = new File([blob], 'WeatherVenue.png', { type: blob.type })
+      const data = {
+        title: 'WeatherVenue.com',
+        text: `Weather in ${card_id.split('_')[0].split('-')[1]}`,
+        files: [file],
+      }
+      if(navigator.canShare && navigator.canShare(data)) {
+        navigator.share()
+      } else {
+        console.log('cannot share ')
+      }
+    })
 }
 
 /**

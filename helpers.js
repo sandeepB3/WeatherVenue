@@ -2,7 +2,7 @@ const fs = require('fs')
 const zlib = require('zlib')
 const axios = require('axios')
 const path = require('path')
-const rawdata = zlib.gunzipSync(fs.readFileSync(path.join(__dirname, '/../data/city.list.min.json.gz'))).toString()
+const rawdata = zlib.gunzipSync(fs.readFileSync(path.join(__dirname, './data/city.list.min.json.gz'))).toString()
 const citiesIds = JSON.parse(rawdata)
 // get data from openweathermap API
 const { setupCache } = require('axios-cache-adapter')
@@ -87,11 +87,34 @@ function formatCities (cities, weathers, pollutions) {
   return newVar
 }
 
-const mappings0 = (JSON.parse(fs.readFileSync(path.join(__dirname, '../public/js/rev-manifest.json'))))
-const mappings = (JSON.parse(fs.readFileSync(path.join(__dirname, '../public/js/libraries/rev-manifest.json'))))
+const messages = {
+  notFoundMessages : {
+    en: {
+      h1: 'Oops!',
+      h2: 'Page is not found',
+      details: 'Sorry, an error has occured or the requested page is not found.',
+      actions: 'Take me home'
+    },
+    ar: {
+      h1: 'أوه!',
+      h2: 'الصفحة غير موجودة',
+      details: 'عذراً ، الصفحة التي تبحث عنها غير موجودة',
+      actions: 'الصفحة الرئيسة'
+    },
+    fr: {
+      h1: 'Oops!',
+      h2: 'Page non retrouvée',
+      details: 'Désolé, une erreur est survenue ou la page demandée est introuvable.',
+      actions: 'Page d\'accueil'
+    }
+  }
+}
+const mappings0 = (JSON.parse(fs.readFileSync(path.join(__dirname, './public/js/rev-manifest.json'))))
+const mappings = (JSON.parse(fs.readFileSync(path.join(__dirname, './public/js/libraries/rev-manifest.json'))))
 
 exports.mappings0 = mappings0
 exports.mappings = mappings
+exports.messages = messages
 exports.getCityId = getCityId
 exports.fetchWeather = fetchWeather
 exports.fetchWeather0 = fetchWeather0

@@ -89,4 +89,23 @@ app.use(function (req, res, next) {
   })
 })
 
+const helpers = require('./helpers')
+app.use(function (req, res, next) {
+  res.status(404)
+  let lang = 'en'
+  if (req.url.indexOf('/ar/') > -1) {
+    lang = 'ar'
+  } else if (req.url.indexOf('/fr/') > -1) {
+    lang = 'fr'
+  }
+  res.render('404', {
+    key: process.env.OPENWEATHERMAP_API_KEY,
+    pass: pass,
+    dependencies: helpers.mappings,
+    scripts: helpers.mappings0,
+    lang: lang,
+    messages: helpers.messages.notFoundMessages[lang]
+  })
+})
+
 module.exports = app

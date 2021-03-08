@@ -1,4 +1,4 @@
-const helpers = require('./helpers')
+const helpers = require('../helpers')
 const express = require('express')
 const Joi = require('joi')
 const axios = require('axios')

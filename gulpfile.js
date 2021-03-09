@@ -5,6 +5,23 @@ const terser = require('gulp-terser')
 const pipeline = require('readable-stream').pipeline
 const rev = require('gulp-rev')
 
+// var del = require('del')
+
+// gulp.task('clean:mobile', function () {
+//   return del([
+//     'dist/report.csv',
+//     // here we use a globbing pattern to match everything inside the `mobile` folder
+//     'dist/mobile/**/*',
+//     // we don't want to clean this file though so we negate the pattern
+//     '!dist/mobile/deploy.json'
+//   ])
+// })
+const clean = require('gulp-clean')
+gulp.task('clean', function () {
+  return gulp.src(['public/js/all*', 'public/js/rev-manifest.json'], { read: false })
+    .pipe(clean())
+})
+
 gulp.task('compress_js', async function () {
   gulp.src(['src/js/js_variables.js', 'src/js/lang_mappings.js', 'src/js/html_holders.js', 'src/js/accessibility.js', 'src/js/GMap.js'])
     .pipe(sourcemaps.init())

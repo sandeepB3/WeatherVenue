@@ -130,6 +130,11 @@ if (process.env.NODE_ENV === 'prod') {
   )
 }
 
+let pass = ''
+if (process.env.NODE_ENV === 'dev') {
+  pass = process.env.PASS
+}
+
 routerAPI.get('/experiences', async function rootHandler (req, res) {
   // All of the answers
   const answers = []
@@ -185,7 +190,7 @@ routerAPI.get('/experiences', async function rootHandler (req, res) {
     error: false,
     message: 'User experiences list',
     data: answers,
-    pass: process.env.pass,
+    pass: pass,
     dependencies: helpers.mappings,
     scripts: helpers.mappings0
   })

@@ -328,10 +328,19 @@ function emptyIt() {
 
 function shareIt(card_id) {
   const dd = __id(card_id);//.cloneNode(true)
-  dd.style.backgroundColor ="white"
+  // dd.style.backgroundColor ="white"
+  const scale = 2
   // dd.childNodes[4].remove()
-  domtoimage.toBlob(dd)
-    .then(function (blob) {
+  domtoimage.toBlob(dd, {
+      width: dd.clientWidth * scale,
+      height: dd.clientHeight * scale,
+      bgcolor: 'white',
+      filter: function (node) { return (node.tagName !== 'BUTTON') },
+      style: {
+        transform: 'scale('+scale+')',
+        transformOrigin: 'top left'
+      }
+    }).then(function (blob) {
       const file = new File([blob], 'WeatherVenue.png', { type: blob.type })
       const data = {
         title: 'WeatherVenue.com',

@@ -327,8 +327,9 @@ function emptyIt() {
 }
 
 function shareIt(card_id) {
-  console.log(card_id)
-  const dd = __id(card_id)
+  const dd = __id(card_id).cloneNode(true)
+  dd.style.backgroundColor ="white"
+  dd.childNodes[4].remove()
   domtoimage.toBlob(dd)
     .then(function (blob) {
       const file = new File([blob], 'WeatherVenue.png', { type: blob.type })

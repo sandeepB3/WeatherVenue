@@ -32,7 +32,7 @@ function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, i
     else if (stepMax === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐃ</th>` }
     else { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;</th>` }
   }).join('')
-
+  let autoDragBtn = _isMobile ? `<button class="btn-sm btn-outline-warning" id="${currentMarkedId}-${co}-autodrag" onclick="autoDrag(this.id)"> Compare </button>` : ''
   return (`
     <div class="col-md-3" id="${currentMarkedId}-${co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
         <div class="card" style="${hueColor}">
@@ -56,6 +56,7 @@ function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, i
                 </div>
             </div>
         </div>
+        ${autoDragBtn}
     </div>
     `)
 }

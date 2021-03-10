@@ -303,6 +303,7 @@ function drop(ev) {
   const title = `<h3>${ data.split('-').slice(1,-1).map(a => {return a.charAt(0).toUpperCase() + a.slice(1) }).join('-') }</h3>`
   toBe.setAttribute('id', data + '_clone')
   toBe.setAttribute('draggable', false)
+  // toBe.style.cursor =''
   toBe.childNodes[1].firstElementChild.setAttribute('href', '')
   toBe.insertAdjacentHTML('afterbegin', title)
   if(_isMobile) {
@@ -317,6 +318,33 @@ function drop(ev) {
     toBe.appendChild(button)
   }
   ev.target.appendChild(toBe)
+}
+
+function autoDrag (autodrag_id) {
+  __id(autodrag_id).remove()
+  let data = autodrag_id.slice(0, -9)
+  let toBe = __id(data).cloneNode(true)
+  toBe.childNodes
+  const title = `<h3>${ data.split('-').slice(1,-1).map(a => {return a.charAt(0).toUpperCase() + a.slice(1) }).join('-') }</h3>`
+  toBe.setAttribute('id', data + '_clone')
+  toBe.setAttribute('draggable', false)
+  // toBe.style.cursor =''
+  toBe.childNodes[1].firstElementChild.setAttribute('href', '')
+  toBe.insertAdjacentHTML('afterbegin', title)
+  if(_isMobile) {
+    var button = document.createElement('button')
+    button.innerHTML = 'Share'
+    button.classList.add('btn-sm')
+    button.classList.add('btn-outline-warning')
+    button.onclick = function(){
+      shareIt(data + '_clone')
+      return false
+    };
+    toBe.appendChild(button)
+  }
+  toBe.childNodes[4].remove()
+  __id('comparision-items').appendChild(toBe)
+  window.location = '#comparision-items'
 }
 
 function emptyIt() {

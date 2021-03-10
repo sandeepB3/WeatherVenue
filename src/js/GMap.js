@@ -336,7 +336,7 @@ function configUIControls () {
           infoWindow.open(map)
           map.setCenter(pos)
           pos.name = 'Current place'
-          nearbyGeolocatedRequest(pos)
+          nearbyTriggeredRequest(pos)
           __id('imgGrid').innerHTML = ''
           showAlertsList(currObj)
         },
@@ -427,7 +427,7 @@ function nearbyRequest (place) {
   })
 }
 // Same as nearbyRequest()
-function nearbyGeolocatedRequest (place) {
+function nearbyTriggeredRequest (place) {
   _showLoading() // Block page while loading
   const requestObject = JSON.stringify({
     lat: place.lat,
@@ -765,3 +765,19 @@ function getPicture (place) {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function () {
+    const mapScripts = document.getElementsByTagName('script')
+    language = [...mapScripts].map(ss => { return ss.getAttribute('lang') }).filter(Boolean)[0]
+    const centerLocation = [...mapScripts].map(ss => { return ss.getAttribute('centerLocation') }).filter(Boolean)[0]
+    const pos = {
+      lat: center.lat,
+      lng: center.lng
+    }
+    map.setCenter(pos)
+    pos.name = centerLocation.charAt(0).toUpperCase() + centerLocation.slice(1)
+    nearbyTriggeredRequest(pos)
+    __id('imgGrid').innerHTML = ''
+  }, 2000)
+}, false)

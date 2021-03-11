@@ -288,7 +288,7 @@ function _generateDummyCards () {
 }
 
 function minMax() {
-  let cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a=> {return a.firstElementChild}).slice(0,8)
+  let cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a=> {return a.firstElementChild}).filter(Boolean).slice(0,8)
   cards.forEach(card => {
     let style = card.style.backgroundImage
     if (style.indexOf('40%') > -1) {

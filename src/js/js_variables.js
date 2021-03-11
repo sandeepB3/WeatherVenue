@@ -287,6 +287,25 @@ function _generateDummyCards () {
   })
 }
 
+function minMax() {
+  let cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).slice(0,8)
+  cards.forEach(card => {
+    let style = card.style.backgroundImage
+    if (style.indexOf('40%') > -1) {
+      card.style.backgroundImage = style.replace('40%', '90%').replace('40%', '90%')
+      return
+    }
+    if (style.indexOf('10%') > -1) {
+      card.style.backgroundImage = style.replace('10%', '40%').replace('10%', '40%')
+      return
+    }
+    if (style.indexOf('90%') > -1) {
+      card.style.backgroundImage = style.replace('90%', '10%').replace('90%', '10%')
+      return
+    }
+  });
+}
+
 // Comparision
 function allowDrop(ev) {
   ev.preventDefault()

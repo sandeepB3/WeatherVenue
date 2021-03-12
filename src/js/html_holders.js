@@ -1,31 +1,55 @@
-function _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2) {
-  let coo = 1
-  return (`
-    <div class="col-md-3" style="margin-top:20px;">
-        <div class="card" style="${aqiColor}">
-            <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId20" role="button" aria-expanded="true">${aqiInterpretation[aqi]}</h4>
-            <table style="width:100%">
-                <tr>
-                    <th style= 'background-color: #4C5273; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                    <th style= 'background-color: #F2E96B; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                    <th style= 'background-color: #F2CA50; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                    <th style= 'background-color: #F2A03D; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                    <th style= 'background-color: #A67041; font-size: xx-small'>${aqiInterpretation[coo++].split(':')[1].trim()}</th>
-                </tr>
-            </table>
-            <div class="card-body">
-                <div class="collapse show" id="collapseId20">
-                    <h5 class="card-title text-center">${ISODate}</h5>
-                    <p class="card-text text-center">CO: ${co} </p>
-                    <p class="card-text text-center">NO: ${no} </p>
-                    <p class="card-text text-center">NO2: ${no2} </p>
+class AqiCard {
+  constructor (style, aqiInterpretation, aqi, ISODate, co, no, no2) {
+    const theme = {
+      1: '#4C5273',
+      2: '#F2E96B',
+      3: '#F2CA50',
+      4: '#F2A03D',
+      5: '#A67041'
+    }
+    this.style = style + theme[aqi]
+    this.aqiInterpretation = aqiInterpretation
+    this.aqi = aqi
+    this.ISODate = ISODate
+    this.co = co
+    this.no = no
+    this.no2 = no2
+  }
+
+  html () {
+    let coo = 1
+    return (`
+        <div class="col-md-3" style="margin-top:20px;">
+            <div class="card" style="${this.style}">
+                <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId20" role="button" aria-expanded="true">${this.aqiInterpretation[this.aqi]}</h4>
+                <table style="width:100%">
+                    <tr>
+                        <th style= 'background-color: #4C5273; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                        <th style= 'background-color: #F2E96B; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                        <th style= 'background-color: #F2CA50; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                        <th style= 'background-color: #F2A03D; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                        <th style= 'background-color: #A67041; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
+                    </tr>
+                </table>
+                <div class="card-body">
+                    <div class="collapse show" id="collapseId20">
+                        <h5 class="card-title text-center">${this.ISODate}</h5>
+                        <p class="card-text text-center">CO: ${this.co} </p>
+                        <p class="card-text text-center">NO: ${this.no} </p>
+                        <p class="card-text text-center">NO2: ${this.no2} </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     `)
+  }
 }
 
+class TemperatureCard {
+  constructor (jsObject) {
+    Object.assign(this, jsObject)
+  }
+}
 function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
   const heads = colorScale.map((color, idx) => {
     if (stepMin === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐁ</th>` }

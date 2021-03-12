@@ -595,6 +595,7 @@ function renderForecastDays (dailies) {
     let hueColors = `; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background: linear-gradient(70deg, hsl( ${hueMin} , 90%, 80%) 40%, hsl( ${hueMax} , 90%, 80%) 40%)`
     let currentMarkedId = 'city-' + currentMarked.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '-').toLowerCase()
     currentMarkedId = `checkId${currentMarkedId}`
+    const card = new TemperatureCard({ hueColors, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, period, co, currentMarkedId })
     const template = _tempHolder(hueColors, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, wind_speed, co, currentMarkedId)
     __id('forecast-items').insertAdjacentHTML('afterbegin', template)
   })
@@ -634,16 +635,9 @@ function renderPollution (pollution) {
   d.setUTCSeconds(pollution.list[0].dt)
   const ISODate = d.toISOString().slice(0, 10)
   const { co, no, no2 } = pollution.list[0].components
-  const theme = {
-    1: '#4C5273',
-    2: '#F2E96B',
-    3: '#F2CA50',
-    4: '#F2A03D',
-    5: '#A67041'
-  }
-  const aqiColor = '; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background-color: ' + theme[aqi]
-  const template = _aqiCardHolder(aqiColor, aqiInterpretation, aqi, ISODate, co, no, no2)
-  __id('forecast-items').insertAdjacentHTML('afterbegin', template)
+  const aqiStyle = '; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background-color: '
+  const card = new AqiCard(aqiStyle, aqiInterpretation, aqi, ISODate, co, no, no2)
+  __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
 }
 
 // #getMarkers, #setMapOnAll, #clearMarkers, #showMarkers are helpers to refresh markers.

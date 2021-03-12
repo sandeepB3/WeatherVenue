@@ -24,7 +24,7 @@
   <%- include('partials/map', { command: 'Enter a location' }); %>
 
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro="You can drag cards to the weather comparison area. Colored cards reflect maximum and minimum temperature in one day. Click on min-max to simplify comparisions visually." data-position="auto">
     <h3 class="section_head" id="location">Search for your city to display next days forecasts.</h3>
     <p id="date"></p>
     <div class="text-center">
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro="In comparision area You can see cards of different days and of different cities too. For Android devices and on Google Chrome only, You can also share any card with people." data-position="auto">
     <h3 class="section_head">Weather comparison.</h3>
     <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
       <div class="pull-right">
@@ -45,7 +45,7 @@
   </div>
 
   <h3 class="section_head" id="gallery">Local pictures of the main city also will appear.</h3>
-  <section id="imgGrid">
+  <section id="imgGrid" data-intro="A beautiful local gallery of pictures of the main city" data-position="auto">
 
   </section>
   <!-- <script defer src="http://localhost:8080/js/commento.js"></script>

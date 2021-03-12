@@ -21,6 +21,8 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.3",
     "googleapis": "^67.1.1",
+    "gulp-license-finder": "^1.0.0",
+    "gulp-util": "^3.0.8",
     "helmet": "^4.3.1",
     "joi": "^17.4.0",
     "nearby-cities": "^1.1.0",

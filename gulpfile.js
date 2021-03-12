@@ -60,6 +60,12 @@ gulp.task('version_dependencies', async function () {
     .pipe(gulp.dest('public/js/libraries/'))
 })
 
+const licenseFind = require('gulp-license-finder')
+gulp.task('licenses', function() {
+  return licenseFind()
+    .pipe(gulp.dest('./audit'))
+})
+
 // const ejs = require('gulp-ejs')
 // gulp.task('compress', function () {
 //   gulp.src('./templates/*.ejs')

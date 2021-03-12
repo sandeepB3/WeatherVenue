@@ -25,7 +25,7 @@
   <%- include('partials/map', {
     command: 'أدخل موقعًا'}); %>
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro=<%- messages.tour[lang].cards %> data-position="auto">
     <h3 class="section_head" id="location">ستظهر هنا تنبآت الطقس لمدة أسبوع. يمكنك اختيار المدن المجاورة من الخريطة</h3>
     <p id="date"></p>
     <div class="text-center">
@@ -34,7 +34,7 @@
     <div class="row" id="forecast-items"></div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro=<%- messages.tour[lang].comparision %> data-position="auto">
     <h3 class="section_head">مقارنة التنبآت</h3>
     <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
       <div class="pull-right">
@@ -44,7 +44,8 @@
   </div>
 
   <h3 class="section_head" id="gallery">ستظهر أيضًا الصورة المحلية للمدينة الرئيسية.</h3>
-  <section id="imgGrid">
+  <section id="imgGrid" data-intro=<%- messages.tour[lang].gallery %> data-position="auto">
+
   </section>
   <%- include('partials/footer'); %>
 

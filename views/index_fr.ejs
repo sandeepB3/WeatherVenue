@@ -24,7 +24,7 @@
   <%- include('partials/map', { command: 'Entrez un endroit' }); %>
 
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro=<%- messages.tour[lang].cards %> data-position="auto">
     <h3 class="section_head" id="location">Recherchez votre ville pour afficher les prévisions des prochains jours. </h3>
     <p id="date"></p>
     <div class="text-center">
@@ -33,7 +33,7 @@
     <div class="row" id="forecast-items"></div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" data-intro=<%- messages.tour[lang].comparision %> data-position="auto">
     <h3 class="section_head">Comparaison météo.</h3>
     <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
       <div class="pull-right">
@@ -43,7 +43,7 @@
   </div>
 
   <h3 class="section_head" id="gallery">Des images de la ville principale apparaîtront également. </h3>
-  <section id="imgGrid">
+  <section id="imgGrid" data-intro=<%- messages.tour[lang].gallery %> data-position="auto">
 
   </section>
   <!-- <script defer src="http://localhost:8080/js/commento.js"></script>

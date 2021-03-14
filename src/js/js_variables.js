@@ -3,7 +3,7 @@
 // js_variables ==> GMap
 // _myStorage, _styles, _autocompleteOptions
 // _styleItDark(), _styleItWhite(), _showLoading(), _hideLoading(),
-// _setWithExpiry(), _getWithExpiry(), _fireAccessFunctions(), _generateDummyCards()
+// _setWithExpiry(), _getWithExpiry(), _fireAccessFunctions()
 
 function __id (id) { return document.getElementById(id) }
 function __class (classs) { return document.getElementsByClassName(classs) }
@@ -249,55 +249,11 @@ const _autocompleteOptions = {
   // componentRestrictions: {country: "us"}
 }
 
-function _generateDummyCards () {
-  const weekdayNames = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ]
-  const dummyDailies = JSON.parse('[{\"dt\":1613390400,\"sunrise\":1613372331,\"sunset\":1613409052,\"temp\":{\"day\":3,\"min\":-1.78,\"max\":4.03,\"night\":1.7,\"eve\":2.11,\"morn\":-1.78},\"feels_like\":{\"day\":-3.81,\"night\":-5.13,\"eve\":-4.54,\"morn\":-8.32},\"pressure\":1024,\"humidity\":66,\"dew_point\":-9.78,\"wind_speed\":6.37,\"wind_deg\":110,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"clear sky\",\"icon\":\"01d\"}],\"clouds\":6,\"pop\":0,\"uvi\":2},{\"dt\":1613304000,\"sunrise\":1613286034,\"sunset\":1613322553,\"temp\":{\"day\":1.9,\"min\":-2.92,\"max\":2.79,\"night\":-0.83,\"eve\":0.18,\"morn\":-2.63},\"feels_like\":{\"day\":-6.01,\"night\":-7.09,\"eve\":-6.16,\"morn\":-10.66},\"pressure\":1028,\"humidity\":63,\"dew_point\":-14.74,\"wind_speed\":7.67,\"wind_deg\":96,\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"clouds\":100,\"pop\":0,\"uvi\":2},{\"dt\":1613217600,\"sunrise\":1613199737,\"sunset\":1613236054,\"temp\":{\"day\":-0.03,\"min\":-3.34,\"max\":0.35,\"night\":-3.11,\"eve\":-2.1,\"morn\":-3.34},\"feels_like\":{\"day\":-7.28,\"night\":-10.75,\"eve\":-9.83,\"morn\":-10.38},\"pressure\":1032,\"humidity\":73,\"dew_point\":-14.61,\"wind_speed\":6.74,\"wind_deg\":91,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"clear sky\",\"icon\":\"01d\"}],\"clouds\":0,\"pop\":0,\"uvi\":2},{\"dt\":1613131200,\"sunrise\":1613113437,\"sunset\":1613149554,\"temp\":{\"day\":1.03,\"min\":-2.08,\"max\":1.03,\"night\":-1.78,\"eve\":-0.68,\"morn\":-2.08},\"feels_like\":{\"day\":-6.05,\"night\":-8.36,\"eve\":-7.1,\"morn\":-8.99},\"pressure\":1027,\"humidity\":69,\"dew_point\":-13.94,\"wind_speed\":6.54,\"wind_deg\":87,\"weather\":[{\"id\":803,\"main\":\"Clouds\",\"description\":\"broken clouds\",\"icon\":\"04d\"}],\"clouds\":81,\"pop\":0,\"uvi\":1.14},{\"dt\":1613044800,\"sunrise\":1613027137,\"sunset\":1613063054,\"temp\":{\"day\":-0.05,\"min\":-3.07,\"max\":0.68,\"night\":-1.31,\"eve\":-0.84,\"morn\":-3.07},\"feels_like\":{\"day\":-5.91,\"night\":-8.18,\"eve\":-6.92,\"morn\":-8.31},\"pressure\":1028,\"humidity\":80,\"dew_point\":-10.83,\"wind_speed\":4.95,\"wind_deg\":88,\"weather\":[{\"id\":800,\"main\":\"Clear\",\"description\":\"clear sky\",\"icon\":\"01d\"}],\"clouds\":10,\"pop\":0,\"uvi\":1.5},{\"dt\":1612958400,\"sunrise\":1612940834,\"sunset\":1612976555,\"temp\":{\"day\":-1.18,\"min\":-4.66,\"max\":0.01,\"night\":-2.45,\"eve\":-1.62,\"morn\":-4.34},\"feels_like\":{\"day\":-8.06,\"night\":-7.01,\"eve\":-6.79,\"morn\":-10.94},\"pressure\":1012,\"humidity\":78,\"dew_point\":-12.58,\"wind_speed\":6.17,\"wind_deg\":27,\"weather\":[{\"id\":600,\"main\":\"Snow\",\"description\":\"light snow\",\"icon\":\"13d\"}],\"clouds\":53,\"pop\":0.52,\"snow\":0.15,\"uvi\":1.33},{\"dt\":1612872000,\"sunrise\":1612854531,\"sunset\":1612890055,\"temp\":{\"day\":-1.67,\"min\":-3.98,\"max\":-0.91,\"night\":-2.78,\"eve\":-2.22,\"morn\":-3.84},\"feels_like\":{\"day\":-5.7,\"night\":-8.87,\"eve\":-7.43,\"morn\":-8.63},\"pressure\":1003,\"humidity\":85,\"dew_point\":-9.49,\"wind_speed\":2.21,\"wind_deg\":40,\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"clouds\":93,\"pop\":0.12,\"uvi\":1.33},{\"dt\":1612785600,\"sunrise\":1612768225,\"sunset\":1612803555,\"temp\":{\"day\":1.45,\"min\":-1.19,\"max\":1.59,\"night\":-0.53,\"eve\":0.76,\"morn\":-1.13},\"feels_like\":{\"day\":-1.77,\"night\":-4.84,\"eve\":-3.37,\"morn\":-4.58},\"pressure\":998,\"humidity\":81,\"dew_point\":-5.67,\"wind_speed\":1.47,\"wind_deg\":4,\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}],\"clouds\":88,\"pop\":0.14,\"uvi\":1.29}]')
-  __id('forecast-items').innerHTML = ''
-  document.body.style.backgroundImage = `url(https://openweathermap.org/img/wn/${dummyDailies[dummyDailies.length - 1].weather[0].icon || 'na'}.png), linear-gradient(to bottom, #82addb 0%,#ebb2b1 100%)`
-  document.documentElement.style.backgroundImage = `url(https://openweathermap.org/img/wn/${dummyDailies[dummyDailies.length - 1].weather[0].icon || 'na'}.png), linear-gradient(rgb(235, 178, 177) 0%, rgb(130, 173, 219) 100%)`
-  const maxTemp = Math.max(...dummyDailies.map((item) => { return item.temp.max }))
-  dummyDailies.forEach(function (period) {
-    const d = new Date(0)
-    d.setUTCSeconds(period.dt)
-    const ISODate = d.toISOString().slice(0, 10)
-    const dayName = weekdayNames[d.getDay()] // new Date(period.dateTimeISO).getDay()
-    const iconSrc = `https://openweathermap.org/img/wn/${period.weather[0].icon || 'na'}@4x.png`
-    const maxTempF = period.temp.max || 'N/A'
-    const minTempF = period.temp.min || 'N/A'
-    const weather = period.weather[0].description || 'N/A'
-    const hue = (1.0 - (maxTempF / maxTemp)) * 240
-    let hueColor = `hsl( ${hue} , 90%, 80%)`
-
-    hueColor = '; background-color: ' + hueColor
-    const template = (`
-            <div class="col-md-3">
-              <div class="card" style="width: 100%${hueColor}">
-                  <div class="card-body">
-                      <h4 class="card-title text-center">${dayName}</h4>
-                      <h5 class="card-title text-center">${ISODate}</h5>
-                      <p><img class="card-img mx-auto d-block" style="max-width: 100px;" src="${iconSrc}"></p>
-                      <h6 class="card-title text-center">${weather}</h6>
-                      <p class="card-text text-center">High: ${maxTempF} <br />Low: ${minTempF}</p>
-                  </div>
-              </div>
-            </div>
-        `)
-    __id('forecast-items').insertAdjacentHTML('afterbegin', template)
-  })
-}
-
-function minMax() {
-  let cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a=> {return a.firstElementChild}).filter(Boolean).slice(0,8)
+// Toggle cards background color between minimum and maximum hue colors
+function minMax () {
+  const cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a => { return a.firstElementChild }).filter(Boolean).slice(0, 8)
   cards.forEach(card => {
-    let style = card.style.backgroundImage
+    const style = card.style.backgroundImage
     if (style.indexOf('40%') > -1) {
       card.style.backgroundImage = style.replace('40%', '100%').replace('40%', '100%')
       return
@@ -308,66 +264,52 @@ function minMax() {
     }
     if (style.indexOf('100%') > -1) {
       card.style.backgroundImage = style.replace('100%', '0.01%').replace('100%', '0.01%')
-      return
     }
-  });
+  })
 }
 
 // Comparision
-function allowDrop(ev) {
+function allowDrop (ev) {
   ev.preventDefault()
 }
 
-function drag(ev) {
+function drag (ev) {
   ev.dataTransfer.setData('text', ev.target.id)
 }
 
-function drop(ev) {
-  ev.preventDefault()
-  var data = ev.dataTransfer.getData('text')
-  let toBe = __id(data).cloneNode(true)
-  const title = `<h3>${ data.split('-').slice(1,-1).map(a => {return a.charAt(0).toUpperCase() + a.slice(1) }).join('-') }</h3>`
-  toBe.setAttribute('id', data + '_clone')
+function generateCard (cardId) {
+  const toBe = __id(cardId).cloneNode(true)
+  const title = `<h3>${cardId.split('-').slice(1, -1).map(a => { return a.charAt(0).toUpperCase() + a.slice(1) }).join('-')}</h3>`
+  toBe.setAttribute('id', cardId + '_clone')
   toBe.setAttribute('draggable', false)
   // toBe.style.cursor =''
   toBe.childNodes[1].firstElementChild.setAttribute('href', '')
   toBe.insertAdjacentHTML('afterbegin', title)
-  if(_isMobile) {
-    var button = document.createElement('button')
+  if (_isMobile) {
+    const button = document.createElement('button')
     button.innerHTML = 'Share'
     button.classList.add('btn-sm')
     button.classList.add('btn-outline-warning')
-    button.onclick = function(){
-      shareIt(data + '_clone')
+    button.onclick = function () {
+      shareIt(cardId + '_clone')
       return false
-    };
+    }
     toBe.appendChild(button)
   }
+  return toBe
+}
+
+function drop (ev) {
+  ev.preventDefault()
+  const data = ev.dataTransfer.getData('text')
+  const toBe = generateCard(data)
   ev.target.appendChild(toBe)
 }
 
 function autoDrag (autodrag_id) {
   __id(autodrag_id).remove()
-  let data = autodrag_id.slice(0, -9)
-  let toBe = __id(data).cloneNode(true)
-  toBe.childNodes
-  const title = `<h3>${ data.split('-').slice(1,-1).map(a => {return a.charAt(0).toUpperCase() + a.slice(1) }).join('-') }</h3>`
-  toBe.setAttribute('id', data + '_clone')
-  toBe.setAttribute('draggable', false)
-  // toBe.style.cursor =''
-  toBe.childNodes[1].firstElementChild.setAttribute('href', '')
-  toBe.insertAdjacentHTML('afterbegin', title)
-  if(_isMobile) {
-    var button = document.createElement('button')
-    button.innerHTML = 'Share'
-    button.classList.add('btn-sm')
-    button.classList.add('btn-outline-warning')
-    button.onclick = function(){
-      shareIt(data + '_clone')
-      return false
-    };
-    toBe.appendChild(button)
-  }
+  const data = autodrag_id.slice(0, -9)
+  const toBe = generateCard(data)
   toBe.childNodes[4].remove()
   __id('comparision-items').appendChild(toBe)
   window.location = '#comparision-items'
@@ -381,32 +323,32 @@ function emptyIt() {
 }
 
 function shareIt(card_id) {
-  const dd = __id(card_id);//.cloneNode(true)
+  const dd = __id(card_id)
   // dd.style.backgroundColor ="white"
   const scale = 2
   // dd.childNodes[4].remove()
   domtoimage.toBlob(dd, {
-      width: dd.clientWidth * scale,
-      height: dd.clientHeight * scale,
-      bgcolor: 'white',
-      filter: function (node) { return (node.tagName !== 'BUTTON') },
-      style: {
-        transform: 'scale('+scale+')',
-        transformOrigin: 'top left'
-      }
-    }).then(function (blob) {
-      const file = new File([blob], 'WeatherVenue.png', { type: blob.type })
-      const data = {
-        title: 'WeatherVenue.com',
-        text: `Weather in ${card_id.split('_')[0].split('-')[1]}`,
-        files: [file],
-      }
-      if(navigator.canShare && navigator.canShare(data)) {
-        navigator.share(data)
-      } else {
-        console.log('cannot share ')
-      }
-    })
+    width: dd.clientWidth * scale,
+    height: dd.clientHeight * scale,
+    bgcolor: 'white',
+    filter: function (node) { return (node.tagName !== 'BUTTON') },
+    style: {
+      transform: 'scale(' + scale + ')',
+      transformOrigin: 'top left'
+    }
+  }).then(function (blob) {
+    const file = new File([blob], 'WeatherVenue.png', { type: blob.type })
+    const data = {
+      title: 'WeatherVenue.com',
+      text: `Weather in ${card_id.split('_')[0].split('-')[1]}`,
+      files: [file]
+    }
+    if(navigator.canShare && navigator.canShare(data)) {
+      navigator.share(data)
+    } else {
+      console.log('cannot share ')
+    }
+  })
 }
 
 /**
@@ -416,10 +358,10 @@ function shareIt(card_id) {
  * Override fetch in the global context to allow us to cache the response to fetch in a Storage interface
  * implementing object (such as localStorage).
  */
- (function (fetch) {
+(function (fetch) {
   /* If the context doesn't support fetch, we won't attempt to patch in our
    caching using fetch, for obvious reasons. */
-  if (!fetch) return;
+  if (!fetch) return
 
   /**
    * Generate the cache key under which to store the local data - either the cache key supplied,
@@ -428,10 +370,10 @@ function shareIt(card_id) {
    * @returns {string}
    */
   function genCacheKey(url, settings) {
-      var {headers:{'Content-type': type}} = ('headers' in settings) ? settings : {headers: {}},
-          {body} = settings;
+    var {headers:{'Content-type': type}} = ('headers' in settings) ? settings : {headers: {}},
+      {body} = settings
 
-      return settings.cacheKey || url + (type || '') + (body || '');
+    return settings.cacheKey || url + (type || '') + (body || '')
   }
 
   /**
@@ -443,14 +385,14 @@ function shareIt(card_id) {
    * @returns {boolean|object}
    */
   function getStorage(storage) {
-      if (!storage) return false;
-      if (storage === true) return self.localStorage;
-      if (typeof storage === "object" && 'getItem' in storage &&
+    if (!storage) return false
+    if (storage === true) return self.localStorage
+    if (typeof storage === "object" && 'getItem' in storage &&
           'removeItem' in storage && 'setItem' in storage) {
-          return storage;
-      }
-      throw new TypeError("localCache must either be a boolean value, " +
-          "or an object which implements the Storage interface.");
+      return storage
+    }
+    throw new TypeError("localCache must either be a boolean value, " +
+          "or an object which implements the Storage interface.")
   }
 
   /**
@@ -460,9 +402,9 @@ function shareIt(card_id) {
    * @param {string} cacheKey
    */
   function removeFromStorage(storage, cacheKey) {
-      storage.removeItem(cacheKey);
-      storage.removeItem(cacheKey + 'cachettl');
-      storage.removeItem(cacheKey + 'dataType');
+    storage.removeItem(cacheKey)
+    storage.removeItem(cacheKey + 'cachettl')
+    storage.removeItem(cacheKey + 'dataType')
   }
 
   /**
@@ -479,22 +421,22 @@ function shareIt(card_id) {
    * @param {Response} response
    */
   function cacheResponse(cacheKey, storage, hourstl, response) {
-      var cres = response.clone(),
-          dataType = (response.headers.get('Content-Type') || 'text/plain').toLowerCase();
+    var cres = response.clone(),
+      dataType = (response.headers.get('Content-Type') || 'text/plain').toLowerCase()
 
-      cres.text().then((text) => {
-          try {
-              storage.setItem(cacheKey, text);
-              storage.setItem(cacheKey + 'cachettl', +new Date() + 1000 * 60 * 60 * hourstl);
-              storage.setItem(cacheKey + 'dataType', dataType);
-          } catch (e) {
-              // Remove any incomplete data that may have been saved before the exception was caught
-              removeFromStorage(storage, cacheKey);
-              console.log('Cache Error: ' + e, cacheKey, text);
-          }
-      });
+    cres.text().then((text) => {
+      try {
+        storage.setItem(cacheKey, text)
+        storage.setItem(cacheKey + 'cachettl', +new Date() + 1000 * 60 * 60 * hourstl)
+        storage.setItem(cacheKey + 'dataType', dataType)
+      } catch (e) {
+        // Remove any incomplete data that may have been saved before the exception was caught
+        removeFromStorage(storage, cacheKey)
+        console.log('Cache Error: ' + e, cacheKey, text)
+      }
+    })
 
-      return response;
+    return response
   }
 
   /**
@@ -506,20 +448,20 @@ function shareIt(card_id) {
    * @returns {Promise}
    */
   function provideResponse(value, dataType) {
-      var response = new Response(
-          value,
-          {
-              status: 200,
-              statusText: 'success',
-              headers: {
-                  'Content-Type': dataType
-              }
-          }
-      );
+    var response = new Response(
+      value,
+      {
+        status: 200,
+        statusText: 'success',
+        headers: {
+          'Content-Type': dataType
+        }
+      }
+    )
 
-      return new Promise(function (resolve, reject) {
-          resolve(response);
-      });
+    return new Promise(function (resolve, reject) {
+      resolve(response)
+    })
   }
 
   /**
@@ -535,38 +477,38 @@ function shareIt(card_id) {
    * isCacheValid : function  // optional - return true for valid, false for invalid.
    */
   self.fetch = function (url, settings) {
-      var storage = getStorage(settings.localCache),
-          hourstl = settings.cacheTTL || 5,
-          cacheKey = genCacheKey(url, settings),
-          cacheValid = settings.isCacheValid,
-          ttl,
-          value,
-          dataType;
+    var storage = getStorage(settings.localCache),
+      hourstl = settings.cacheTTL || 5,
+      cacheKey = genCacheKey(url, settings),
+      cacheValid = settings.isCacheValid,
+      ttl,
+      value,
+      dataType
 
-      if (!storage) return fetch(url, settings);
+    if (!storage) return fetch(url, settings)
 
-      ttl = storage.getItem(cacheKey + 'cachettl');
+    ttl = storage.getItem(cacheKey + 'cachettl')
 
-      if (cacheValid && typeof cacheValid === 'function' && !cacheValid()) {
-          removeFromStorage(storage, cacheKey);
-          ttl = 0;
-      }
+    if (cacheValid && typeof cacheValid === 'function' && !cacheValid()) {
+      removeFromStorage(storage, cacheKey)
+      ttl = 0
+    }
 
-      if (ttl && ttl < +new Date()) {
-          removeFromStorage(storage, cacheKey);
-      }
+    if (ttl && ttl < +new Date()) {
+      removeFromStorage(storage, cacheKey)
+    }
 
-      value = storage.getItem(cacheKey);
+    value = storage.getItem(cacheKey)
 
-      if (!value) {
-          /* If not cached, we'll make the request and add a then block to the resulting promise,
+    if (!value) {
+      /* If not cached, we'll make the request and add a then block to the resulting promise,
            in which we'll cache the result. */
-          return fetch(url, settings).then(cacheResponse.bind(null, cacheKey, storage, hourstl));
-      }
+      return fetch(url, settings).then(cacheResponse.bind(null, cacheKey, storage, hourstl))
+    }
 
-      /* Value is cached, so we'll simply create and respond with a promise of our own,
+    /* Value is cached, so we'll simply create and respond with a promise of our own,
        and provide a response object. */
-      dataType = storage.getItem(cacheKey + 'dataType') || 'text/plain';
-      return provideResponse(value, dataType);
+    dataType = storage.getItem(cacheKey + 'dataType') || 'text/plain'
+    return provideResponse(value, dataType)
   };
-})(self.fetch);
+})(self.fetch)

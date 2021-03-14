@@ -7,7 +7,7 @@ __id('date').innerHTML = today
 // 'js_variables.js' ==> 'GMap.js'
 // _myStorage, _styles, _isMobile, _autocompleteOptions
 // _styleItDark(), _styleItWhite(), _showLoading(), _hideLoading(),
-// _setWithExpiry(), _getWithExpiry(), _generateDummyCards()
+// _setWithExpiry(), _getWithExpiry()
 
 // 'lang_mappings.js' and 'html_holders.js' ==> 'GMap.js'
 // AqiCard, TemperatureCard, _weekdaysLangs(), _aqiLangs(), _picturesLangs()
@@ -426,6 +426,7 @@ function nearbyRequest (place) {
     _hideLoading() // Unblock page
   })
 }
+
 // Same as nearbyRequest()
 function nearbyTriggeredRequest (place) {
   _showLoading() // Block page while loading

@@ -58,9 +58,9 @@ let center = { lat: -33.8688, lng: 151.2195 }
 
 // sets default geolocation for center based on originating page: {index.html, index_ar.html}
 function refreshCenter () {
-  const mapScripts = document.getElementsByTagName('script')
-  language = [...mapScripts].map(ss => { return ss.getAttribute('lang') }).filter(Boolean)[0]
-  const centerLocation = [...mapScripts].map(ss => { return ss.getAttribute('centerLocation') }).filter(Boolean)[0]
+  const params = _getScriptParams(['lang', 'centerLocation'])
+  language = params[0]
+  const centerLocation = params[1]
   switch (centerLocation) {
     case 'algiers':
       center = { lat: 36.75, lng: 3.05 }
@@ -569,32 +569,7 @@ function renderForecastDays (dailies) {
   __id('forecast-items').innerHTML = ''
   const maxTemp = Math.max(...dailies.map((item) => { return item.temp.max }))
   const minTemp = Math.min(...dailies.map((item) => { return item.temp.min }))
-  const range = Array.range(minTemp, maxTemp, 0.5, 1)
-  let colorScale
   dailies.forEach(function (period, co) {
-    const d = new Date(0)
-    d.setUTCSeconds(period.dt)
-    const ISODate = d.toISOString().slice(5, 10)
-    const dayName = weekdayNames[d.getDay()] // new Date(period.dateTimeISO).getDay()
-    const iconSrc = `https://openweathermap.org/img/wn/${period.weather[0].icon || 'na'}@4x.png`
-    const maxTempF = period.temp.max || 'N/A'
-    const minTempF = period.temp.min || 'N/A'
-    // const averageTemp = (maxTempF + minTempF) / 2
-    let description = period.weather[0].description || 'N/A'
-    let sunrise, sunset, humidity, pressure, wind_speed
-    ({ sunrise, sunset, humidity, pressure, wind_speed } = period)
-    sunrise = new Date(sunrise * 1000).toLocaleTimeString('en-GB').slice(0, 5)
-    sunset = new Date(sunset * 1000).toLocaleTimeString('en-GB').slice(0, 5)
-    description = description.charAt(0).toUpperCase() + description.slice(1)
-    // const hue_ = ((maxTempF - minTemp) / (maxTemp - minTemp)) * 240
-    const hueMax = (1.0 - (maxTempF / maxTemp)) * 240
-    const hueMin = (1.0 - (minTempF / maxTemp)) * 240
-    const stepMin = range.filter(n => { return minTempF > n }).length
-    const stepMax = range.filter(n => { return maxTempF > n }).length
-    colorScale = colorScale ? colorScale : range.map(step => { return `hsl( ${((1.0 - (step / maxTemp)) * 240)} , 90%, 80%)` })
-    let hueColors = `; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background: linear-gradient(70deg, hsl( ${hueMin} , 90%, 80%) 40%, hsl( ${hueMax} , 90%, 80%) 40%)`
-    let currentMarkedId = 'city-' + currentMarked.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '-').toLowerCase()
-    currentMarkedId = `checkId${currentMarkedId}`
     const card = new TemperatureCard(language, period, maxTemp, minTemp, currentMarked, co)
     __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
   })
@@ -763,9 +738,9 @@ function getPicture (place) {
 
 document.addEventListener('DOMContentLoaded', function () {
   setTimeout(function () {
-    const mapScripts = document.getElementsByTagName('script')
-    language = [...mapScripts].map(ss => { return ss.getAttribute('lang') }).filter(Boolean)[0]
-    const centerLocation = [...mapScripts].map(ss => { return ss.getAttribute('centerLocation') }).filter(Boolean)[0]
+    const params = _getScriptParams(['lang', 'centerLocation'])
+    language = params[0]
+    const centerLocation = params[1]
     const pos = {
       lat: center.lat,
       lng: center.lng

@@ -17,6 +17,13 @@ if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elain
   _isMobile = true
 }
 
+function _getScriptParams (params) {
+  const mapScripts = document.getElementsByTagName('script')
+  return params.map(param => {
+    return [...mapScripts].map(ss => { return ss.getAttribute(param) }).filter(Boolean)[0]
+  })
+}
+
 // less styling, setting business positions off and transit off
 const _styles = {
   default: [],

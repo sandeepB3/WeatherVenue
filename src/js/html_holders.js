@@ -111,7 +111,7 @@ class TemperatureCard {
                       <p><img class="icon" src="./img/sunset.svg"> ${this.sunset}</p>
                       <p><img class="icon" src="./img/humidity.svg"> ${this.humidity}</p>
                       <p><img class="icon" src="./img/pressure.svg"> ${this.pressure}</p>
-                      <p><img class="icon" src="./img/wind.svg"> ${this.windSpeed}</p>
+                      <p><img class="icon" src="./img/wind.svg"> ${this.wind_speed}</p>
                   </div>
                   </div>
               </div>

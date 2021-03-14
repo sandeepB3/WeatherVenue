@@ -18,10 +18,11 @@ class AqiCard {
 
   html () {
     let coo = 1
+    const showClass = _isMobile ? '' : 'show'
     return (`
         <div class="col-md-3" style="margin-top:20px;">
             <div class="card" style="${this.style}">
-                <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId20" role="button" aria-expanded="true">${this.aqiInterpretation[this.aqi]}</h4>
+                <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId20" role="button" aria-expanded="false">${this.aqiInterpretation[this.aqi]}</h4>
                 <table style="width:100%">
                     <tr>
                         <th style= 'background-color: #4C5273; font-size: xx-small'>${this.aqiInterpretation[coo++].split(':')[1].trim()}</th>
@@ -32,7 +33,7 @@ class AqiCard {
                     </tr>
                 </table>
                 <div class="card-body">
-                    <div class="collapse show" id="collapseId20">
+                    <div class="collapse ${showClass}" id="collapseId20">
                         <h5 class="card-title text-center">${this.ISODate}</h5>
                         <p class="card-text text-center">CO: ${this.co} </p>
                         <p class="card-text text-center">NO: ${this.no} </p>
@@ -93,6 +94,7 @@ class TemperatureCard {
   }
 
   html () {
+    const showClass = _isMobile ? '' : 'show'
     let autoDragBtn = _isMobile ? `<button class="btn-sm btn-outline-warning" id="${this.getCurrentMarkedId()}-${this.co}-autodrag" onclick="autoDrag(this.id)"> Compare </button>` : ''
     return (`
       <div class="col-md-3" id="${this.getCurrentMarkedId()}-${this.co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
@@ -100,10 +102,10 @@ class TemperatureCard {
               <table style="width:100%">
                   <tr>${this.getColorScaleHeads()}</tr>
               </table>
-              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="true">${this.dayName}\n${this.ISODate}</h4>
+              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="false">${this.dayName}\n${this.ISODate}</h4>
               <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${this.iconSrc}">
               <div class="card-body">
-                  <div class="collapse show" id="collapseId${this.co}">
+                  <div class="collapse ${showClass}" id="collapseId${this.co}">
                       <h6 class="card-title text-center">${this.description}</h6>
                       <p class="card-text text-center">High: ${this.maxTempF} <br />Low: ${this.minTempF}</p>
                       <div id="weatherinfo">

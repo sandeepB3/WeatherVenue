@@ -299,15 +299,15 @@ function minMax() {
   cards.forEach(card => {
     let style = card.style.backgroundImage
     if (style.indexOf('40%') > -1) {
-      card.style.backgroundImage = style.replace('40%', '90%').replace('40%', '90%')
+      card.style.backgroundImage = style.replace('40%', '100%').replace('40%', '100%')
       return
     }
-    if (style.indexOf('10%') > -1) {
-      card.style.backgroundImage = style.replace('10%', '40%').replace('10%', '40%')
+    if (style.indexOf('0.01%') > -1) {
+      card.style.backgroundImage = style.replace('0.01%', '40%').replace('0.01%', '40%')
       return
     }
-    if (style.indexOf('90%') > -1) {
-      card.style.backgroundImage = style.replace('90%', '10%').replace('90%', '10%')
+    if (style.indexOf('100%') > -1) {
+      card.style.backgroundImage = style.replace('100%', '0.01%').replace('100%', '0.01%')
       return
     }
   });

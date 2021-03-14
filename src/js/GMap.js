@@ -10,7 +10,7 @@ __id('date').innerHTML = today
 // _setWithExpiry(), _getWithExpiry(), _generateDummyCards()
 
 // 'lang_mappings.js' and 'html_holders.js' ==> 'GMap.js'
-// _aqiCardHolder(), _tempHolder(), _weekdaysLangs(), _aqiLangs(), _picturesLangs()
+// AqiCard, TemperatureCard, _weekdaysLangs(), _aqiLangs(), _picturesLangs()
 
 // 'accessibility.js' ==> 'Gmap.js'
 // _fireAccessFunctions()
@@ -595,10 +595,11 @@ function renderForecastDays (dailies) {
     let hueColors = `; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background: linear-gradient(70deg, hsl( ${hueMin} , 90%, 80%) 40%, hsl( ${hueMax} , 90%, 80%) 40%)`
     let currentMarkedId = 'city-' + currentMarked.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '-').toLowerCase()
     currentMarkedId = `checkId${currentMarkedId}`
-    const card = new TemperatureCard({ hueColors, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, period, co, currentMarkedId })
-    const template = _tempHolder(hueColors, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, wind_speed, co, currentMarkedId)
-    __id('forecast-items').insertAdjacentHTML('afterbegin', template)
+    const card = new TemperatureCard(language, period, maxTemp, minTemp, currentMarked, co)
+    __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
   })
+  const minMaxBtn = '<div class="pull-right"><button type="button" class="btn btn-light" id="startover" onclick="minMax()">Min-Max</button></div>'
+  __id('forecast-items').insertAdjacentHTML('afterbegin', minMaxBtn)
 
   dailies.reverse()
   __currentSpokenForecast = 'Now, let’s see what the weather is like in ' + __currentSpokenCity + ': '

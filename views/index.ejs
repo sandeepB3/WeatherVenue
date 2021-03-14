@@ -27,11 +27,13 @@
   <div class="container-fluid" data-intro=<%- messages.tour[lang].cards %> data-position="auto">
     <h3 class="section_head" id="location">Search for your city to display next days forecasts.</h3>
     <p id="date"></p>
-    <div class="text-center">
-      <button class="btn-sm btn-outline-warning center" onclick="minMax()">Min-Max</button>
-    </div>
+    <!-- <div class="text-center">
+      <button class="btn-sm btn-light center" onclick="minMax()">Min-Max</button>
+    </div> -->
     <div class="row" id="forecast-items">
-      
+      <div class="pull-right">
+        <button type="button" class="btn btn-light" id="startover" onclick="minMax()">Min-Max</button>
+      </div>
     </div>
   </div>
 
@@ -39,15 +41,15 @@
     <h3 class="section_head">Weather comparison.</h3>
     <div class="row" id="comparision-items" ondrop="drop(event)" ondragover="allowDrop(event)">
       <div class="pull-right">
-        <button type="button" class="btn btn-outline-warning" id="startover" onclick="emptyIt()">Start over</button>
+        <button type="button" class="btn btn-light" id="startover" onclick="emptyIt()">Start over</button>
       </div>
     </div>
   </div>
 
   <h3 class="section_head" id="gallery">Local pictures of the main city also will appear.</h3>
-  <section id="imgGrid" data-intro=<%- messages.tour[lang].gallery %> data-position="auto">
+  <div class="row" id="imgGrid" data-intro=<%- messages.tour[lang].gallery %> data-position="auto">
 
-  </section>
+  </div>
   <!-- <script defer src="http://localhost:8080/js/commento.js"></script>
   <div id="commento"></div> -->
   <%- include('partials/footer'); %>

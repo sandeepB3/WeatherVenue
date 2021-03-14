@@ -46,43 +46,80 @@ class AqiCard {
 }
 
 class TemperatureCard {
-  constructor (jsObject) {
-    Object.assign(this, jsObject)
+  constructor (language, period, maxTemp, minTemp, currentMarked, co) {
+    this.period = period
+    this.maxTemp = maxTemp
+    this.minTemp = minTemp
+    this.currentMarked = currentMarked
+    const d = new Date(0)
+    d.setUTCSeconds(period.dt)
+    this.ISODate = d.toISOString().slice(5, 10)
+    this.dayName = _weekdaysLangs(language)[d.getDay()]
+    this.iconSrc = `https://openweathermap.org/img/wn/${period.weather[0].icon || 'na'}@4x.png`
+    this.maxTempF = period.temp.max || 'N/A'
+    this.minTempF = period.temp.min || 'N/A'
+    this.description = period.weather[0].description || 'N/A'
+    this.sunrise = new Date(period.sunrise * 1000).toLocaleTimeString('en-GB').slice(0, 5)
+    this.sunset = new Date(period.sunset * 1000).toLocaleTimeString('en-GB').slice(0, 5)
+    this.humidity = period.humidity
+    this.pressure = period.pressure
+    this.wind_speed = period.wind_speed
+    this.co = co
   }
-}
-function _tempHolder(hueColor, colorScale, stepMin, stepMax, dayName, ISODate, iconSrc, description, maxTempF, minTempF, sunrise, sunset, humidity, pressure, windSpeed, co, currentMarkedId) {
-  const heads = colorScale.map((color, idx) => {
-    if (stepMin === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐁ</th>` }
-    else if (stepMax === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐃ</th>` }
-    else { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;</th>` }
-  }).join('')
-  let autoDragBtn = _isMobile ? `<button class="btn-sm btn-outline-warning" id="${currentMarkedId}-${co}-autodrag" onclick="autoDrag(this.id)"> Compare </button>` : ''
-  return (`
-    <div class="col-md-3" id="${currentMarkedId}-${co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
-        <div class="card" style="${hueColor}">
-            <table style="width:100%">
-                <tr>${heads}</tr>
-            </table>
-            <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${co}" role="button" aria-expanded="true">${dayName}\n${ISODate}</h4>
-            <!--<h5 class="card-title text-center">${ISODate}</h5>-->
-            <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${iconSrc}">
-            <div class="card-body">
-                <div class="collapse show" id="collapseId${co}">
-                    <h6 class="card-title text-center">${description}</h6>
-                    <p class="card-text text-center">High: ${maxTempF} <br />Low: ${minTempF}</p>
-                    <div id="weatherinfo">
-                    <p><img class="icon" src="./img/sunrise.svg"> ${sunrise}</p>
-                    <p><img class="icon" src="./img/sunset.svg"> ${sunset}</p>
-                    <p><img class="icon" src="./img/humidity.svg"> ${humidity}</p>
-                    <p><img class="icon" src="./img/pressure.svg"> ${pressure}</p>
-                    <p><img class="icon" src="./img/wind.svg"> ${windSpeed}</p>
-                </div>
-                </div>
-            </div>
-        </div>
-        ${autoDragBtn}
-    </div>
+
+  getHueColors () {
+    const hueMax = (1.0 - (this.maxTempF / this.maxTemp)) * 240
+    const hueMin = (1.0 - (this.minTempF / this.maxTemp)) * 240
+    const hueColors = `; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background: linear-gradient(70deg, hsl( ${hueMin} , 90%, 80%) 40%, hsl( ${hueMax} , 90%, 80%) 40%)`
+    return hueColors
+  }
+
+  getCurrentMarkedId () {
+    const currentMarkedId = 'city-' + this.currentMarked.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(' ', '-').toLowerCase()
+    return `checkId${currentMarkedId}`
+  }
+
+  getColorScaleHeads () {
+    const range = Array.range(this.minTemp, this.maxTemp, 0.5, 1)
+    const stepMin = range.filter(n => { return this.minTempF > n }).length
+    const stepMax = range.filter(n => { return this.maxTempF > n }).length
+    const colorScale = range.map(step => { return `hsl( ${((1.0 - (step / this.maxTemp)) * 240)} , 90%, 80%)` })
+    const heads = colorScale.map((color, idx) => {
+      if (stepMin === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐁ</th>` }
+      else if (stepMax === idx) { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;ᐃ</th>` }
+      else { return `<th style= 'background-color: ${color}; font-size: xx-small'>&nbsp;</th>` }
+    }).join('')
+    return heads
+  }
+
+  html () {
+    let autoDragBtn = _isMobile ? `<button class="btn-sm btn-outline-warning" id="${this.getCurrentMarkedId()}-${this.co}-autodrag" onclick="autoDrag(this.id)"> Compare </button>` : ''
+    return (`
+      <div class="col-md-3" id="${this.getCurrentMarkedId()}-${this.co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
+          <div class="card" style="${this.getHueColors()}">
+              <table style="width:100%">
+                  <tr>${this.getColorScaleHeads()}</tr>
+              </table>
+              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="true">${this.dayName}\n${this.ISODate}</h4>
+              <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${this.iconSrc}">
+              <div class="card-body">
+                  <div class="collapse show" id="collapseId${this.co}">
+                      <h6 class="card-title text-center">${this.description}</h6>
+                      <p class="card-text text-center">High: ${this.maxTempF} <br />Low: ${this.minTempF}</p>
+                      <div id="weatherinfo">
+                      <p><img class="icon" src="./img/sunrise.svg"> ${this.sunrise}</p>
+                      <p><img class="icon" src="./img/sunset.svg"> ${this.sunset}</p>
+                      <p><img class="icon" src="./img/humidity.svg"> ${this.humidity}</p>
+                      <p><img class="icon" src="./img/pressure.svg"> ${this.pressure}</p>
+                      <p><img class="icon" src="./img/wind.svg"> ${this.windSpeed}</p>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          ${autoDragBtn}
+      </div>
     `)
+  }
 }
 
 function _adsHolder(company) {

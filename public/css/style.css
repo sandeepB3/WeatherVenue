@@ -172,7 +172,7 @@ ul {
   color: #eee !important;
 }
 
-section{
+#imgGrid{
   display: flex;
   flex-wrap: wrap;
 }
@@ -304,12 +304,6 @@ div.featured_pictures{
   font-size: smaller;
 }
 
-#imgGrid {
-  width: 80%;
-  margin: 50px auto;
-  padding: 0;
-}
-
 #imgGrid img {
   border-radius: 5px;
   border: none;
@@ -337,7 +331,7 @@ div.featured_pictures{
 
 /* comparision */
 
-#comparision-items, #forecast-items {
+#comparision-items, #forecast-items, #imgGrid {
   padding: 10px;
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 10px;

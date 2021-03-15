@@ -24,6 +24,11 @@ function _getScriptParams (params) {
   })
 }
 
+let collapseBtn1 = __id('collapse1')
+collapseBtn1.onclick = function () { collapseBtn1.classList.toggle('active') }
+let collapseBtn2 = __id('collapse2')
+collapseBtn2.onclick = function () { collapseBtn2.classList.toggle('active') }
+
 // less styling, setting business positions off and transit off
 const _styles = {
   default: [],
@@ -255,14 +260,20 @@ function minMax () {
   cards.forEach(card => {
     const style = card.style.backgroundImage
     if (style.indexOf('40%') > -1) {
+      __id('minmax').children[0].style = 'color:blue'
+      __id('minmax').children[1].style = 'color:black'
       card.style.backgroundImage = style.replace('40%', '100%').replace('40%', '100%')
       return
     }
     if (style.indexOf('0.01%') > -1) {
+      __id('minmax').children[0].style = 'color:black'
+      __id('minmax').children[1].style = 'color:black'
       card.style.backgroundImage = style.replace('0.01%', '40%').replace('0.01%', '40%')
       return
     }
     if (style.indexOf('100%') > -1) {
+      __id('minmax').children[0].style = 'color:black'
+      __id('minmax').children[1].style = 'color:red'
       card.style.backgroundImage = style.replace('100%', '0.01%').replace('100%', '0.01%')
     }
   })
@@ -387,12 +398,12 @@ function shareIt(card_id) {
   function getStorage(storage) {
     if (!storage) return false
     if (storage === true) return self.localStorage
-    if (typeof storage === "object" && 'getItem' in storage &&
+    if (typeof storage === 'object' && 'getItem' in storage &&
           'removeItem' in storage && 'setItem' in storage) {
       return storage
     }
-    throw new TypeError("localCache must either be a boolean value, " +
-          "or an object which implements the Storage interface.")
+    throw new TypeError('localCache must either be a boolean value, ' +
+          'or an object which implements the Storage interface.')
   }
 
   /**

@@ -95,6 +95,7 @@ class TemperatureCard {
 
   html () {
     const showClass = _isMobile ? '' : 'show'
+    const collapseIcon = _isMobile ? '<i class="bi bi-arrows-collapse"></i>' : ''
     let autoDragBtn = _isMobile ? `<button class="btn-sm btn-light" id="${this.getCurrentMarkedId()}-${this.co}-autodrag" onclick="autoDrag(this.id)"><i class="bi bi-binoculars"></i></button>` : ''
     return (`
       <div class="col-md-3" id="${this.getCurrentMarkedId()}-${this.co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
@@ -102,7 +103,7 @@ class TemperatureCard {
               <table style="width:100%">
                   <tr>${this.getColorScaleHeads()}</tr>
               </table>
-              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="false">${this.dayName}\n${this.ISODate}</h4>
+              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="false">${collapseIcon}${this.dayName}\n${this.ISODate}</h4>
               <img class="card-img mx-auto d-block" style="max-width: 30%;" src="${this.iconSrc}">
               <div class="card-body">
                   <div class="collapse ${showClass}" id="collapseId${this.co}">

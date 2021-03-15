@@ -574,8 +574,8 @@ function renderForecastDays (dailies) {
     const card = new TemperatureCard(language, period, maxTemp, minTemp, currentMarked, co)
     __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
   })
-  const minMaxBtn = '<div class="pull-right"><button type="button" class="btn btn-light" id="startover" onclick="minMax()">Min-Max</button></div>'
-  __id('forecast-items').insertAdjacentHTML('afterbegin', minMaxBtn)
+  const nav = new CardsNavBar(language)
+  __id('forecast-items').insertAdjacentHTML('afterbegin', nav.html())
 
   dailies.reverse()
   __currentSpokenForecast = 'Now, let’s see what the weather is like in ' + __currentSpokenCity + ': '

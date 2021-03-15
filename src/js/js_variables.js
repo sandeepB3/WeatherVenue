@@ -287,9 +287,9 @@ function generateCard (cardId) {
   toBe.insertAdjacentHTML('afterbegin', title)
   if (_isMobile) {
     const button = document.createElement('button')
-    button.innerHTML = 'Share'
+    button.innerHTML = '<i class="bi bi-share"></i>'
     button.classList.add('btn-sm')
-    button.classList.add('btn-outline-warning')
+    button.classList.add('btn-light')
     button.onclick = function () {
       shareIt(cardId + '_clone')
       return false

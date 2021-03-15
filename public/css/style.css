@@ -330,12 +330,32 @@ div.featured_pictures{
 
 
 /* comparision */
-
 #comparision-items, #forecast-items, #imgGrid {
   padding: 10px;
   border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px)
+}
+
+/* https://projects.verou.me/css3patterns/#argyle */
+#comparision-items {
+  background-color: #dfdbe586;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%239C92AC' fill-opacity='0.27'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+#imgGrid {
+  border-radius: 10px;
+}
+
+#minibar {
+  padding: 0;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background: rgba(255, 255, 255, 0.623);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px)
 }

@@ -95,7 +95,7 @@ class TemperatureCard {
 
   html () {
     const showClass = _isMobile ? '' : 'show'
-    let autoDragBtn = _isMobile ? `<button class="btn-sm btn-outline-warning" id="${this.getCurrentMarkedId()}-${this.co}-autodrag" onclick="autoDrag(this.id)"> Compare </button>` : ''
+    let autoDragBtn = _isMobile ? `<button class="btn-sm btn-light" id="${this.getCurrentMarkedId()}-${this.co}-autodrag" onclick="autoDrag(this.id)"><i class="bi bi-binoculars"></i></button>` : ''
     return (`
       <div class="col-md-3" id="${this.getCurrentMarkedId()}-${this.co}" style="margin-top:20px;" draggable="true" ondragstart="drag(event)">
           <div class="card" style="${this.getHueColors()}">

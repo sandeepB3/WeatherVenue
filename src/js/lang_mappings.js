@@ -39,11 +39,11 @@ function _aqiLangs(language) {
   switch (language) {
     case 'en':
       return {
-        1: 'Air Quality: Good',
-        2: 'Air Quality: Fair',
-        3: 'Air Quality: Moderate',
-        4: 'Air Quality: Poor',
-        5: 'Air Quality: Very Poor'
+        1: 'Air quality: Good',
+        2: 'Air quality: Fair',
+        3: 'Air quality: Moderate',
+        4: 'Air quality: Poor',
+        5: 'Air quality: Very Poor'
       }
     case 'ar':
       return {

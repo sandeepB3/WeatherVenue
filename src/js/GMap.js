@@ -606,15 +606,11 @@ function renderForecastDays (dailies) {
 
 // Create and Update the HTML div card holding pollution information and scale for one city for today only
 function renderPollution (pollution) {
-  const aqiInterpretation = _aqiLangs(language)
   const aqi = pollution.list[0].main.aqi
-  const d = new Date(0)
-  d.setUTCSeconds(pollution.list[0].dt)
-  const ISODate = d.toISOString().slice(0, 10)
   const { co, no, no2 } = pollution.list[0].components
-  const aqiStyle = '; border-radius: 5px; border: 5px solid rgb(122 122 122 / 30%); background-color: '
-  const card = new AqiCard(aqiStyle, aqiInterpretation, aqi, ISODate, co, no, no2)
-  __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
+  const today = pollution.list[0].dt
+  const card = new AqiCard(language, aqi, today, co, no, no2)
+  __id('forecast-items').insertAdjacentHTML('beforeend', card.html())
 }
 
 // #getMarkers, #setMapOnAll, #clearMarkers, #showMarkers are helpers to refresh markers.

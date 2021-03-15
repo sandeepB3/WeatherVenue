@@ -251,7 +251,7 @@ const _autocompleteOptions = {
 
 // Toggle cards background color between minimum and maximum hue colors
 function minMax () {
-  const cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a => { return a.firstElementChild }).filter(Boolean).slice(0, 8)
+  const cards = Array.from(document.querySelectorAll('[id^="checkIdcity"]')).map(a => { return a.firstElementChild }).filter(a => { return a.className === 'card'}).slice(0, 8)
   cards.forEach(card => {
     const style = card.style.backgroundImage
     if (style.indexOf('40%') > -1) {

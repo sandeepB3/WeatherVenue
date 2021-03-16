@@ -13,6 +13,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #ffdba6;
+  position: sticky
 }
 
 body[data-theme="dark"] {

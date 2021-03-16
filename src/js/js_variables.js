@@ -263,18 +263,30 @@ function minMax () {
       __id('minmax').children[0].style = 'color:blue'
       __id('minmax').children[1].style = 'color:black'
       card.style.backgroundImage = style.replace('40%', '100%').replace('40%', '100%')
+      Array.from(document.body.getElementsByTagName('th')).slice(0, 176).forEach(th => {
+        th.innerHTML = th.innerHTML.replace('ᐁ', '▼')
+        th.innerHTML = th.innerHTML.replace('▲', 'ᐃ')
+      })
       return
     }
     if (style.indexOf('0.01%') > -1) {
       __id('minmax').children[0].style = 'color:black'
       __id('minmax').children[1].style = 'color:black'
       card.style.backgroundImage = style.replace('0.01%', '40%').replace('0.01%', '40%')
+      Array.from(document.body.getElementsByTagName('th')).slice(0, 176).forEach(th => {
+        th.innerHTML = th.innerHTML.replace('▼', 'ᐁ')
+        th.innerHTML = th.innerHTML.replace('▲', 'ᐃ')
+      })
       return
     }
     if (style.indexOf('100%') > -1) {
       __id('minmax').children[0].style = 'color:black'
       __id('minmax').children[1].style = 'color:red'
       card.style.backgroundImage = style.replace('100%', '0.01%').replace('100%', '0.01%')
+      Array.from(document.body.getElementsByTagName('th')).slice(0, 176).forEach(th => {
+        th.innerHTML = th.innerHTML.replace('▼', 'ᐁ')
+        th.innerHTML = th.innerHTML.replace('ᐃ', '▲')
+      })
     }
   })
 }

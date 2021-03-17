@@ -554,6 +554,7 @@ Array.range = function(from, to, step, prec) {
 // Fill __currentSpokenForecast with a transcript for Weather forecast
 // hueColors: calculated background color based on the current tempreture and all weather average
 let lastIcon
+let todayWeather
 function renderForecastDays (dailies) {
   // console.log("renderForecastDays");
   // console.log(JSON.stringify(dailies));
@@ -574,6 +575,7 @@ function renderForecastDays (dailies) {
     const card = new TemperatureCard(language, period, maxTemp, minTemp, currentMarked, co)
     __id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
   })
+  window.todayWeather = dailies[0].weather[0].description
   // const minMaxBtn = '<div class="text-center"><button type="button" class="btn btn-light" id="minmax" onclick="minMax()"><i class="bi bi-thermometer"></i><i class="bi bi-thermometer-high"></i></button></div>'
   // __id('forecast-items').insertAdjacentHTML('beforebegin', minMaxBtn)
 

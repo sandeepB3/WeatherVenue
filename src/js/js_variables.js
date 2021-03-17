@@ -535,3 +535,27 @@ function shareIt(card_id) {
     return provideResponse(value, dataType)
   };
 })(self.fetch)
+
+function offScene () {
+  __class('map_wrapper')[0].style.display = 'block'
+}
+
+function initScene (forced) {
+  if (_isMobile) {
+    console.log('not compatible with smartphones.')
+    return
+  }
+  if (window.todayWeather) {
+    __class('map_wrapper')[0].style.display = 'none'
+    let done = false
+    if (forced && forced === 'rain') {
+      done = initRainScene()
+    }
+    if (forced && forced === 'sun') {
+      done = initSunScene()
+    }
+    if (!done) {
+      initRainScene()
+    }
+  }
+}

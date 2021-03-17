@@ -1,0 +1,29 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Simulation
+</button>
+  
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Weather simulation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Weather simulation is a new feature we are trying to fully add. We have only two scenes: Sunny and Rainy and working for more.
+        In future, It will reflect today's weather for the main city.
+        It is to know, simulations only run on computers (not smartphones) and can slow interactions with the site depending on computer performance. 
+        You can simply refresh the page to make a simulation disappear.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="offScene()">Close</button>
+        <button type="button" class="btn btn-primary" onclick="initScene('rain')">Rain demo!</button>
+        <button type="button" class="btn btn-primary" onclick="initScene('sun')">Sun demo!</button>
+    </div>
+    </div>
+</div>
+</div>

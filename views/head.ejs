@@ -1,6 +1,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" 
+   content="default-src 'none'; 
+   script-src 'self' cdn.rtlcss.com code.jquery.com maps.googleapis.com unpkg.com www.google-analytics.com www.googletagmanager.com ajax.googleapis.com cdnjs.cloudflare.com polyfill.io stackpath.bootstrapcdn.com; 
+   connect-src 'self'; 
+   img-src 'self' data: maps.gstatic.com *.googleapis.com *.ggpht; 
+   style-src 'self' unpkg.com cdn.jsdelivr.net cdn.rtlcss.com;
+   base-uri 'self';
+   form-action 'self'">
+
 <link rel="alternate" hreflang="en" href="https://www.weathervenue.com/" />
 <link rel="alternate" hreflang="fr" href="https://www.weathervenue.com/fr" />
 <link rel="alternate" hreflang="ar" href="https://www.weathervenue.com/ar" />
@@ -8,7 +16,6 @@
 
 <meta name="Description" content="<%= description %>">
 <title><%= title %></title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
 <% if(version=='bootstrap'){ %>
     <%- include('html_dependencies/bootstrap'); %>
   <% } else if(version=='bootstrap-rtl'){ %>  

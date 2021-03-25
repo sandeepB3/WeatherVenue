@@ -1,15 +1,17 @@
 // import { weatherMap } from "./routes"
 
-const dotenv = require('dotenv')
+const dotenv    = require('dotenv')
+const express   = require('express')
+const helmet    = require('helmet')
+const favicon   = require('serve-favicon')
+const path      = require('path')
+const app       = express()
+const Sentry    = require('@sentry/node')
+const Tracing   = require('@sentry/tracing')
+const compression = require('compression')
+
 dotenv.config()
 console.log(`Your port is ${process.env.PORT}`) // 8626
-const express = require('express')
-const helmet = require('helmet')
-const favicon = require('serve-favicon')
-const path = require('path')
-const app = express()
-const Sentry = require('@sentry/node')
-const Tracing = require('@sentry/tracing')
 
 if (process.env.NODE_ENV !== 'dev') {
   Sentry.init({
@@ -21,11 +23,13 @@ if (process.env.NODE_ENV !== 'dev') {
     tracesSampleRate: 1.0
   })
 }
+app.use(compression())
 app.use(Sentry.Handlers.requestHandler())
 app.use(Sentry.Handlers.tracingHandler())
 app.use(favicon(path.join(__dirname, '/public/img', 'icon.png')))
-app.use(helmet({ contentSecurityPolicy: false }))
+app.use(helmet())
 app.set('view engine', 'ejs')
+
 const rateLimit = require('express-rate-limit')
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

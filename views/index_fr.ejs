@@ -13,8 +13,8 @@
   <div id="cookies-eu-banner" style="display: none;">
     En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies par Google Analytics à des fins statistiques.
     <a href="https://www.cookielaw.org/google-analytics-eu-cookie-law/" id="cookies-eu-more">Lire plus</a>
-    <button id="cookies-eu-reject">Refuser</button>
-    <button id="cookies-eu-accept">Accepter</button>
+    <button type="submit" id="cookies-eu-reject">Refuser</button>
+    <button type="submit" id="cookies-eu-accept">Accepter</button>
   </div>
   <div id="spinner-back"></div>
   <div id="spinner-front">
@@ -27,11 +27,11 @@
   <div class="container-fluid" data-intro=<%- messages.tour[lang].cards %> data-position="auto">
     <h3 class="section_head" id="location">Recherchez votre ville pour afficher les prévisions des prochains jours. </h3>
     <p id="date"></p>
-    <div class="row text-center" id="minibar">
-      <button id="collapse1" type="button" class="btn btn-light" data-toggle="collapse" href="#forecast-items">
+    <div class="row text-center" id="minibar1">
+      <button id="collapse1" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#forecast-items">
         <i class="bi bi-arrows-collapse"></i>
       </button>
-      <button type="button" class="btn btn-light" id="minmax" onclick="minMax()">
+      <button type="button" aria-label="min-max" class="btn btn-light" id="minmax" onclick="minMax()">
         <i class="bi bi-thermometer"></i>
         <i class="bi bi-thermometer-high"></i>
       </button>
@@ -41,11 +41,11 @@
 
   <div class="container-fluid" data-intro=<%- messages.tour[lang].comparision %> data-position="auto">
     <h3 class="section_head">Comparaison météo.</h3>
-    <div class="row text-center" id="minibar">
-      <button id="collapse2" type="button" class="btn btn-light" data-toggle="collapse" href="#comparision-items">
+    <div class="row text-center" id="minibar2">
+      <button id="collapse2" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#comparision-items">
         <i class="bi bi-arrows-collapse"></i>
       </button>
-      <button type="button" class="btn btn-light" id="startover" onclick="emptyIt()">
+      <button type="button" aria-label="empty-it" class="btn btn-light" id="startover" onclick="emptyIt()">
         <i class="bi bi-x-circle"></i>
       </button>
     </div>
@@ -57,8 +57,6 @@
   <section class="row" id="imgGrid" data-intro=<%- messages.tour[lang].gallery %> data-position="auto">
 
   </section>
-  <!-- <script defer src="http://localhost:8080/js/commento.js"></script>
-  <div id="commento"></div> -->
   <%- include('partials/footer'); %>
 
 </body>

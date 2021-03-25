@@ -1,5 +1,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'">
+<link rel="alternate" hreflang="en" href="https://www.weathervenue.com/" />
+<link rel="alternate" hreflang="fr" href="https://www.weathervenue.com/fr" />
+<link rel="alternate" hreflang="ar" href="https://www.weathervenue.com/ar" />
+<link rel="icon" type="image/png" href="https://www.weathervenue.com/img/icon.png">
+
 <meta name="Description" content="<%= description %>">
 <title><%= title %></title>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default" defer></script>
@@ -14,11 +20,12 @@ defer></script>
 <link rel="stylesheet" type="text/css" href="../css/style.css" />
 <link rel="stylesheet" type="text/css" href="../css/beautifuck.css" />
 <script src="../js/libraries/<%= dependencies['cookies-eu-banner.js']%>"></script>
+<!-- TODO: Revise web linked dependencies. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/5.1.0/screenfull.min.js" integrity="sha512-SGPHIoS+NsP1NUL5RohNpDs44JlF36tXLN6H3Cw+EUyenEc5zPXWqfw9D+xmvR00QYUYewQIJQ6P5yH82Vw6Fg==" crossorigin="anonymous"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-59D6066VJ6"></script>
-<script data-ad-client="ca-pub-4987312092359418" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script src="../js/libraries/<%= dependencies['dom-to-image.js']%>"></script>
+<!-- TODO: Revise web linked dependencies. -->
 <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css" >
 <!-- <script defer src="../../js/libraries/lifecycle.es5.js"></script> -->

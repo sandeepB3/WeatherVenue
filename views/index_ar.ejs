@@ -14,8 +14,8 @@
   <div id="cookies-eu-banner" style="display: none;">
     مع الاستمرار في زيارة هذا الموقع ، فإنك تقبل استخدام ملفات تعريف الارتباط (cookies) بواسطة Google Analytics لأغراض إحصائية.
     <a href="https://www.google.ae/intl/ar/about/company/user-consent-policy-help/" id="cookies-eu-more">اقرأ التفاصيل</a>
-    <button id="cookies-eu-reject">لا أوافق</button>
-    <button id="cookies-eu-accept">أوافق</button>
+    <button type="submit" id="cookies-eu-reject">لا أوافق</button>
+    <button type="submit" id="cookies-eu-accept">أوافق</button>
   </div>
   <div id="spinner-back"></div>
   <div id="spinner-front">
@@ -28,11 +28,11 @@
   <div class="container-fluid" data-intro=<%- messages.tour[lang].cards %> data-position="auto">
     <h3 class="section_head" id="location">ستظهر هنا تنبآت الطقس لمدة أسبوع. يمكنك اختيار المدن المجاورة من الخريطة</h3>
     <p id="date"></p>
-    <div class="row text-center" id="minibar">
-      <button id="collapse1" type="button" class="btn btn-light" data-toggle="collapse" href="#forecast-items">
+    <div class="row text-center" id="minibar1">
+      <button id="collapse1" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#forecast-items">
         <i class="bi bi-arrows-collapse"></i>
       </button>
-      <button type="button" class="btn btn-light" id="minmax" onclick="minMax()">
+      <button type="button" aria-label="min-max" class="btn btn-light" id="minmax" onclick="minMax()">
         <i class="bi bi-thermometer"></i>
         <i class="bi bi-thermometer-high"></i>
       </button>
@@ -42,11 +42,11 @@
 
   <div class="container-fluid" data-intro=<%- messages.tour[lang].comparision %> data-position="auto">
     <h3 class="section_head">مقارنة التنبآت</h3>
-    <div class="row text-center" id="minibar">
-      <button id="collapse2" type="button" class="btn btn-light" data-toggle="collapse" href="#comparision-items">
+    <div class="row text-center" id="minibar2">
+      <button id="collapse2" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#comparision-items">
         <i class="bi bi-arrows-collapse"></i>
       </button>
-      <button type="button" class="btn btn-light" id="startover" onclick="emptyIt()">
+      <button type="button" aria-label="empty-it" class="btn btn-light" id="startover" onclick="emptyIt()">
         <i class="bi bi-x-circle"></i>
       </button>
     </div>

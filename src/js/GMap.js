@@ -320,6 +320,7 @@ function configUIControls () {
   const locationButton = document.createElement('button')
   locationButton.textContent = 'Go to Current Location'
   locationButton.classList.add('custom-map-control-button')
+  locationButton.setAttribute('type', 'submit')
   map.controls[google.maps.ControlPosition.TOP_RIGHT].clear()
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(locationButton)
   locationButton.addEventListener('click', () => {

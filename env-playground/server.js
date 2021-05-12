@@ -1,3 +1,2 @@
-// server.js
-const port = process.env.PORT;
-console.log(`Your port is ${port}`);
+const { port } = require('./config');
+console.log(`Your port is ${port}`); // 8626

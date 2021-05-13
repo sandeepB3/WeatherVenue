@@ -1,14 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" 
-   content="default-src 'self' cdn.jsdelivr.net; 
-   script-src 'self' 'unsafe-inline' cdn.rtlcss.com code.jquery.com maps.googleapis.com unpkg.com www.google-analytics.com www.googletagmanager.com lh3.googleusercontent.com ajax.googleapis.com cdnjs.cloudflare.com polyfill.io stackpath.bootstrapcdn.com; 
-   connect-src 'self' www.google-analytics.com; 
-   img-src 'self' data: maps.gstatic.com *.googleapis.com *.ggpht openweathermap.org www.google-analytics.com maps.google.com lh3.googleusercontent.com; 
-   style-src 'self' 'unsafe-inline' unpkg.com cdn.jsdelivr.net cdn.rtlcss.com stackpath.bootstrapcdn.com fonts.googleapis.com;
-   font-src 'self' cdn.jsdelivr.net fonts.gstatic.com
-   base-uri 'self';
-   form-action 'self'">
+
 
 <link rel="alternate" hreflang="en" href="https://www.weathervenue.com/" />
 <link rel="alternate" hreflang="fr" href="https://www.weathervenue.com/fr" />
@@ -18,7 +10,7 @@
 <meta name="Description" content="<%= description %>">
 <title><%= title %></title>
 <% if(version=='bootstrap'){ %>
-    <%- include('html_dependencies/bootstrap'); %>
+    <%- include('html_dependencies/bootstrap'); %>ç
   <% } else if(version=='bootstrap-rtl'){ %>  
     <%- include('html_dependencies/bootstrap-rtl'); %>
  <% } %>

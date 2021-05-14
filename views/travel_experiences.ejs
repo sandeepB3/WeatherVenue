@@ -20,6 +20,10 @@
       .post-about:hover {
         transform: translateX(10px);
       }
+
+      .post-about [data-theme="dark"] {
+        background-color: ;
+      }
     }
 
     @media (max-width: 768px) {
@@ -51,10 +55,10 @@
 
 <body>
   <%- include('partials/nav_bar', { lang: 'en' }); %>
-  <h3 class="section_head">Share Your Travel Experience, today !</h3>
+  <h3 class="section_head">Share Your Travel Experience, today!</h3>
   <div class="container mt-5">
     <% data.reverse().forEach(function(values){ %>
-      <div class="post-about mb-4">
+      <div id="xp_posts" class="post-about mb-4">
         <h2><%= values.title %></h2>
         <div>
           <span class="post-tag"><%= values.name %></span>
@@ -66,8 +70,8 @@
     <% }) %>
   </div>
   <p class="text-center">
-    <a class="btn btn-light" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-      Share your trip now !
+    <a id="cta_share_travelXp" class="btn btn-light" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Share your trip now!
     </a>
   </p>
   <div class="collapse" id="collapseExample">

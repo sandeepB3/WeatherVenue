@@ -118,3 +118,5 @@ dist
 google-credentials.json
 
 .idea/
+
+.env

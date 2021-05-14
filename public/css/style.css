@@ -173,6 +173,32 @@ ul {
   color: #eee !important;
 }
 
+[data-theme='dark'] #weather_theme_toggle {
+  color:rgb(255, 255, 255);
+}
+[data-theme='dark'] #dark_mode_toggle {
+  color:rgb(255, 255, 255);
+}
+[data-theme='dark'] #accessibility_toggle {
+  color:rgb(255, 255, 255);
+}
+
+[data-theme='dark'] #xp_posts {
+  background-color: #c3c1f4;
+  border-radius: 5px;
+}
+
+
+#cta_share_travelXp {
+  background-color: #08c6a9f6;
+  color: #ffff;
+  border: none;
+}
+
+#navbarNav [data-theme='dark'] {
+  color:rgb(255, 255, 255);
+}
+
 #imgGrid{
   display: flex;
   flex-wrap: wrap;
@@ -228,9 +254,10 @@ div.featured_pictures{
 }
 
 .nav-link {
-  color: #801818 !important;
+  color: #92A5FD !important;
   /* padding: 0; */
 }
+
 
 .btn {
   margin-right: 5px;
@@ -238,11 +265,22 @@ div.featured_pictures{
 
 #simulationBtn {
   color:rgb(255, 255, 255);
-  background-color: #587FFC;
+  background-color: #08C6AB;
+  border: none;
+}
+
+#fullscreen {
+  color: #ffff;
+  background-color: #08C6AB;
+  border: none;
 }
 
 .navbar-brand {
   font-size: x-large;
+  color: #92A5FD;
+}
+
+#navbarNav {
   color: #92A5FD;
 }
 
@@ -262,9 +300,9 @@ div.featured_pictures{
 
 #date {
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
-  font-size: small;
+  font-size: 18px;
   font-weight: 800;
   width: 70%;
   color: #08C6AB;

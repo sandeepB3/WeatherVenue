@@ -27,6 +27,7 @@ app.use(compression())
 app.use(Sentry.Handlers.requestHandler())
 app.use(Sentry.Handlers.tracingHandler())
 app.use(favicon(path.join(__dirname, '/public/img', 'icon.png')))
+app.use(helmet({ contentSecurityPolicy: false }))
 app.set('view engine', 'ejs')
 
 const rateLimit = require('express-rate-limit')

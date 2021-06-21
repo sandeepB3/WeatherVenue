@@ -41,7 +41,7 @@ class CurrentList {
 }
 
 // currentObj is an instance of CurrentList
-// map, currentMarked, markers, autocomplete, language, and directions are all global variables holding one value, 
+// map, currentMarked, markers, autocomplete, language, and directions are all global variables holding one value,
 // that could change with a new city search or other user interractions
 let currObj = { isValid: false }
 let currentMarked
@@ -132,7 +132,7 @@ function initMap () {
       strokeColor: 'blue'
     })
     // Fit map size to its markers
-    var bounds = new google.maps.LatLngBounds()
+    const bounds = new google.maps.LatLngBounds()
     map.data.forEach(function (feature) {
       feature.getGeometry().forEachLatLng(function (latlng) {
         bounds.extend(latlng)
@@ -147,8 +147,8 @@ function initMap () {
   }
 
   // Create the infowindow for the center marker
-  let infowindow = new google.maps.InfoWindow()
-  let infowindowContent = __id('infowindow-content')
+  const infowindow = new google.maps.InfoWindow()
+  const infowindowContent = __id('infowindow-content')
   const infowindowContentPrime = infowindowContent.cloneNode(true)
   infowindow.setContent(infowindowContent)
   const marker = new google.maps.Marker({
@@ -244,7 +244,7 @@ function initMap () {
   showAlertsList(currObj)
 }
 // When browser doesn't support Geolocation
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+function handleLocationError (browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos)
   infoWindow.setContent(
     browserHasGeolocation
@@ -267,7 +267,7 @@ function configUIControls () {
   darkThemeSelected ? _styleItDark() : _styleItWhite()
   // Define on toggle behaviour.
   google.maps.event.addDomListener(__id('darkSwitch'), 'click', function () {
-    var toggle = localStorage.getItem('darkSwitch') !== null && localStorage.getItem('darkSwitch') === 'dark'
+    const toggle = localStorage.getItem('darkSwitch') !== null && localStorage.getItem('darkSwitch') === 'dark'
     toggle ? _styleItWhite() : _styleItDark()
   })
 
@@ -289,7 +289,7 @@ function configUIControls () {
   }
 
   // Create the autocompletion search bar if does not exist already
-  var input = __id('pac-input')
+  let input = __id('pac-input')
   if (input == null) {
     const div = document.createElement('INPUT')
     div.id = 'pac-input'
@@ -311,12 +311,12 @@ function configUIControls () {
   // Geolocation
   currentMarked = 'geolocated'
   // Create Geolocation button if it does not exist
-  var panButton = __class('custom-map-control-button')[0]
+  const panButton = __class('custom-map-control-button')[0]
   if (panButton) {
     return
   }
 
-  var infoWindow = new google.maps.InfoWindow()
+  const infoWindow = new google.maps.InfoWindow()
   const locationButton = document.createElement('button')
   locationButton.textContent = 'Go to Current Location'
   locationButton.classList.add('custom-map-control-button')
@@ -535,7 +535,7 @@ function populateHeatMap (day) {
   return true
 }
 
-Array.range = function(from, to, step, prec) {
+Array.range = function (from, to, step, prec) {
   if (typeof from === 'number') {
     const A = [from]
     step = typeof step === 'number' ? Math.abs(step) : 1
@@ -626,7 +626,7 @@ function getMarkers () {
     lat: currObj.coordinates[1],
     lng: currObj.coordinates[0]
   }
-  var bounds = new google.maps.LatLngBounds()
+  const bounds = new google.maps.LatLngBounds()
 
   let idx = 0
   const COLORS = ['blue', 'purple', 'green', 'yellow', 'red']
@@ -751,3 +751,11 @@ document.addEventListener('DOMContentLoaded', function () {
     __id('imgGrid').innerHTML = ''
   }, 2000)
 }, false)
+
+if (document.location.hash && document.location.hash === '#algeria') {
+  setTimeout(() => {
+    map.data.loadGeoJson(
+      '/data/dza.geojson'
+    )
+  }, 5000)
+}

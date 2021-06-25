@@ -238,6 +238,7 @@ function initMap () {
     currentMarked = place.name
     getPicture(place.name)
     nearbyRequest(place)
+    refreshDzBorder()
     showAlertsList(currObj)
   })
   // Populate current alerts of all cities on a floating HTML panel on the map
@@ -752,10 +753,24 @@ document.addEventListener('DOMContentLoaded', function () {
   }, 2000)
 }, false)
 
-if (document.location.hash && document.location.hash === '#algeria') {
-  setTimeout(() => {
-    map.data.loadGeoJson(
-      '/data/dza.geojson'
-    )
-  }, 5000)
+let borderData
+function refreshDzBorder () {
+  if (document.location.hash && document.location.hash === '#algeria') {
+    setTimeout(() => {
+      if (borderData) {
+        borderData.setMap(null)
+      } else {
+        borderData = new google.maps.Data()
+      }
+      borderData.loadGeoJson(
+        '/data/dza.geojson'
+      )
+      borderData.setMap(map)
+      borderData.setStyle({
+        fillColor: 'green',
+        fillOpacity: 0.1
+      })
+    }, 5000)
+  }
 }
+refreshDzBorder()

@@ -758,18 +758,17 @@ function refreshDzBorder () {
   if (document.location.hash && document.location.hash === '#algeria') {
     setTimeout(() => {
       if (borderData) {
-        borderData.setMap(null)
-      } else {
-        borderData = new google.maps.Data()
+        return
       }
+      borderData = new google.maps.Data()
       borderData.loadGeoJson(
         '/data/dza.geojson'
       )
-      borderData.setMap(map)
       borderData.setStyle({
         fillColor: 'green',
         fillOpacity: 0.1
       })
+      borderData.setMap(map)
     }, 5000)
   }
 }

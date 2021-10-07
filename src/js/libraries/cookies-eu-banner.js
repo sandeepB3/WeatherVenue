@@ -100,7 +100,7 @@
           _this.setConsent(false);
 
           // Delete existing tracking cookies
-          _this.trackingCookiesNames.map(_this.deleteCookie);
+          _this.trackingCookiesNames.forEach(_this.deleteCookie);
         });
       }
     },

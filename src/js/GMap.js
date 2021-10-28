@@ -113,11 +113,7 @@ function initMap () {
     })
   } else {
     // initMap() being called a second time, clear earlier data
-    (function (m) {
-      m.data.forEach(function (f) {
-        m.data.remove(f)
-      })
-    }(map))
+    map.data.forEach(feature => map.data.remove(feature))
     google.maps.event.trigger(map, 'resize')
   }
   configUIControls()
@@ -164,9 +160,7 @@ function initMap () {
         // console.log(marker.title)
         currentMarked = marker.title
         // Do not render again when the same marker is clicked !
-        if (latestClicked === marker.title) {
-          return
-        } else {
+        if (latestClicked !== marker.title) {
           latestClicked = marker.title
         }
         infowindowContentPrime.getElementsByClassName('title')[0].innerHTML = marker.title
@@ -176,12 +170,8 @@ function initMap () {
         toggleBounce()
         if (currObj.isValid) {
           __id('location').innerHTML = marker.title // currObj.location;
-          cityWeather = currObj.weather.filter((item) => {
-            return (item.cityName === marker.title)
-          })[0]
-          cityPollution = currObj.pollution.filter((item) => {
-            return (item.cityName === marker.title)
-          })[0]
+          const cityWeather = currObj.weather.find(item => item.cityName === marker.title)
+          const cityPollution = currObj.pollution.find(item => item.cityName === marker.title)
           renderForecastDays(cityWeather.daily)
           renderPollution(cityPollution)
         }
@@ -582,7 +572,7 @@ function renderForecastDays (dailies) {
   // __id('forecast-items').insertAdjacentHTML('beforebegin', minMaxBtn)
 
   dailies.reverse()
-  __currentSpokenForecast = 'Now, let’s see what the weather is like in ' + __currentSpokenCity + ': '
+  let __currentSpokenForecast = 'Now, let’s see what the weather is like in ' + __currentSpokenCity + ': '
   dailies.forEach(function (period, key) {
     const toPrecision = x => Number.parseFloat(x).toPrecision(1)
     const d = new Date(0)
@@ -601,7 +591,7 @@ function renderForecastDays (dailies) {
         chain = 'Tomorrow is '
         break
       default:
-        (dailies.length - 1 === key) ? chain = 'Finally, on ' : chain = 'On '
+        chain = (dailies.length - 1 === key) ? 'Finally, on ' : 'On '
         break
     }
     __currentSpokenForecast += `${chain} ${dayName}, ${d.toDateString().slice(4, 10)}, it feels like ${description} with a maximum temperature of ${toPrecision(maxTempF)}°C and a minimum of ${toPrecision(minTempF)}°. `
@@ -627,7 +617,7 @@ function getMarkers () {
     lat: currObj.coordinates[1],
     lng: currObj.coordinates[0]
   }
-  const bounds = new google.maps.LatLngBounds()
+  // const bounds = new google.maps.LatLngBounds()
 
   let idx = 0
   const COLORS = ['blue', 'purple', 'green', 'yellow', 'red']
@@ -664,25 +654,19 @@ function getMarkers () {
 
 // Sets the map on all markers in the array.
 function setMapOnAll (map) {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(map)
-  }
+  markers.forEach(marker => marker.setMap(map))
 }
 
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers () {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setVisible(false)
-  }
+  markers.forEach(marker => marker.setVisible(false))
   setMapOnAll(null)
   markers = []
 }
 
 // Shows any markers currently in the array.
 function showMarkers () {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setVisible(true)
-  }
+  markers.forEach(marker => marker.setVisible(true))
   setMapOnAll(map)
 }
 

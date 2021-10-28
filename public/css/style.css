@@ -288,7 +288,7 @@ div.featured_pictures{
   color: #92A5FD;
 }
 
-#location, #gallery, .section_head {
+#location, #gallery, .section_head, #explanatory-text {
   margin: 0 auto;
   padding: 20px;
   text-align: center;

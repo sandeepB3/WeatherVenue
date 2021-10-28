@@ -1,5 +1,8 @@
 # WeatherVenue
 
+> Hacktoberfest: I only accept pull requests where the user went through installation. Please share a capture of a working installation with pull request.
+> Also, I do not accept "any" pull request. Something like: Changing a button color would (most probably) be ignored. 
+
 WeatherVenue is a weather website using Google Maps and Openweathermap data to let people find best places to visit in their entourage; For warmer winter weather vacation or cool summer escapes. 
 
 It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-geocode, nearby-cities, openweather-apis...).
@@ -16,9 +19,15 @@ It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-
 
 when deployed after research it should be like: 
 
-![capture](CONTRIBUTING/Capture.PNG)
+![UI map](CONTRIBUTING/Capture_map.PNG)
 
-![capture2](CONTRIBUTING/Capture2.PNG)
+![UI city weather details](CONTRIBUTING/Capture_city_details.PNG)
+
+![UI city pictures](CONTRIBUTING/Capture_city_pictures.PNG)
+
+
+### Animated background available!
+![Storm background](CONTRIBUTING/demo_of_stormy_background.gif)
 
 # Contribution
 

@@ -7,45 +7,45 @@ if (process.env.NODE_ENV === 'dev') {
   pass = process.env.PASS
 }
 
+const { mappings0, mappings, messages } = helpers
+
+const defaults = {
+  scripts: mappings0,
+  dependencies: mappings,
+  messages,
+  pass
+}
+
 routerUI.get('/', function rootHandler (req, res) {
   res.render('index', {
     key: process.env.GOOGLE_MAPS_API_KEY,
-    pass: pass,
-    scripts: helpers.mappings0,
-    dependencies: helpers.mappings,
-    messages: helpers.messages,
-    lang: 'en'
+    lang: 'en',
+    ...defaults
   })
 })
 
 routerUI.get('/ar', function rootHandler (req, res) {
   res.render('index_ar', {
     key: process.env.GOOGLE_MAPS_API_KEY,
-    pass: pass,
-    scripts: helpers.mappings0,
-    dependencies: helpers.mappings,
-    messages: helpers.messages,
-    lang: 'ar'
+    lang: 'ar',
+    ...defaults
   })
 })
 
 routerUI.get('/fr', function rootHandler (req, res) {
   res.render('index_fr', {
     key: process.env.GOOGLE_MAPS_API_KEY,
-    pass: pass,
-    scripts: helpers.mappings0,
-    dependencies: helpers.mappings,
-    messages: helpers.messages,
-    lang: 'fr'
+    lang: 'fr',
+    ...defaults
   })
 })
 
 routerUI.get('/weather_map_view', function rootHandler(req, res) {
   res.render('weather_map_view', {
     key: process.env.GOOGLE_MAPS_API_KEY,
-    pass: pass,
-    scripts: helpers.mappings0,
-    dependencies: helpers.mappings
+    scripts: mappings0,
+    dependencies: mappings,
+    pass
   })
 })
 

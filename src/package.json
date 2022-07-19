@@ -1,0 +1,39 @@
+{
+    "name": "weathervenue-client",
+    "version": "1.0.0",
+    "description": "Not a standalone client. It only generates client scripts and styles that are served publicly",
+    "source": [
+      "js/weathervenue.js"
+    ],
+    "targets": {
+      "default": {
+        "engines": {
+          "browsers": "> 0.25%"
+        },
+        "distDir": "../public/js/",
+        "publicUrl": ".",
+        "sourceMap": true
+      }
+    },
+    "type": "module",
+    "scripts": {
+      "build": "find ../public/js/ -type f -delete && parcel build && sass src/style:../public/stylesheets",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        
+    },
+    "devDependencies": {
+      "@types/google.maps": "^3.49.2",
+      "@types/web": "0.0.68",
+      "parcel": "^2.6.2"
+    },
+    "keywords": [
+      "javascript",
+      "google maps",
+      "vanilla js"
+    ],
+    "author": "bacloud22",
+    "license": "ISC"
+  }
+  

@@ -120,3 +120,4 @@ google-credentials.json
 .idea/
 
 .env
+package-lock.json

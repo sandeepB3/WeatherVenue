@@ -1,3 +1,6 @@
+### Note for the next 🎉Hacktoverfest🎉
+Stay tuned for a modular version: ECMAScript modules + a whole rewrite of back end from Express to Fastify.
+
 # WeatherVenue
 
 > Hacktoberfest: I only accept pull requests where the user went through installation. Please share a capture of a working installation with pull request.

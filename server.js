@@ -50,14 +50,13 @@ fastify.register(fastifyRedis, { host: config('REDIS_HOST'), port: 6379/*, passw
 // flash is useful for redirects but requires a session
 // fastify.register(fastifyFlash)
 
-
 /*********************************************************************************************** */
 // TODO: find a way to strip very long eta logging errors
 fastify.register(viewsPlugin, {
   engine: {
     eta: Eta,
   },
-  //root: 'templates' //path.join(__dirname, 'templates'),
+  root: path.join(__dirname, 'templates'),
   options: { useWith: true },
 })
 

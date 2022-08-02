@@ -5,7 +5,7 @@
 <link rel="alternate" hreflang="en" href="https://www.weathervenue.com/" />
 <link rel="alternate" hreflang="fr" href="https://www.weathervenue.com/fr" />
 <link rel="alternate" hreflang="ar" href="https://www.weathervenue.com/ar" />
-<link rel="icon" type="image/png" href="/wv/images/icon.png">
+<link rel="icon" type="image/png" href="/images/icon.png">
 
 <meta name="Description" content="<%= description %>">
 <title><%= title %></title>

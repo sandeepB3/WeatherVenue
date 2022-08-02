@@ -7,7 +7,7 @@ const { nearestCities } = pkg
 async function routes(fastify, options) {
     const { redis } = fastify
     fastify.get('/', { helmet: googleHelmet }, function (req, reply) {
-        reply.view('/index', {
+        reply.view('./index', {
             key: process.env.GOOGLE_MAPS_API_KEY,
             lang: 'en',
             messages: messages,
@@ -15,7 +15,7 @@ async function routes(fastify, options) {
     })
 
     fastify.get('/fr', { helmet: googleHelmet }, function (req, reply) {
-        reply.view('/index_fr', {
+        reply.view('./index_fr', {
             key: process.env.GOOGLE_MAPS_API_KEY,
             lang: 'fr',
             messages: messages,
@@ -23,7 +23,7 @@ async function routes(fastify, options) {
     })
 
     fastify.get('/ar', { helmet: googleHelmet }, function (req, reply) {
-        reply.view('/index_en', {
+        reply.view('./index_en', {
             key: process.env.GOOGLE_MAPS_API_KEY,
             lang: 'ar',
             messages: messages,

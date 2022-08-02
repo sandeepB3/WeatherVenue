@@ -1,6 +1,6 @@
 <nav class="navbar sticky-bottom navbar-light bg-light">
     <div class="container-fluid">
-      <img id="copyright_google" src='/wv/images/powered_by_google_on_white_hdpi.png' alt="Powered by Google">
+      <img id="copyright_google" src='/images/powered_by_google_on_white_hdpi.png' alt="Powered by Google">
       <a class="text-dark" href="https://Openweathermap.org/"> & Openweathermap.org</a>
       <div class="center">
         © 2022 Copyright:

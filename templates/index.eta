@@ -13,7 +13,7 @@
   
   <div id="spinner-back"></div>
   <div id="spinner-front">
-    <img src="/wv/images/loading.gif" /><br>
+    <img src="/images/loading.gif" /><br>
   </div>
   <%~ includeFile('navbar', { lang: 'fr' }); %>
   <div class="container-fluid">

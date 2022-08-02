@@ -119,3 +119,6 @@ dist
 
 .env
 package-lock.json
+
+/public/js
+/public/css

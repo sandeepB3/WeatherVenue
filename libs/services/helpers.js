@@ -8,7 +8,7 @@ import zlib from 'zlib';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const rawdata = zlib.gunzipSync(fs.readFileSync(path.join(__dirname, '../../../data/geo/city.list.min.json.gz'))).toString()
+const rawdata = zlib.gunzipSync(fs.readFileSync(path.join(__dirname, '../../data/geo/city.list.min.json.gz'))).toString()
 const citiesIds = JSON.parse(rawdata)
 // const cache = setupCache({
 //   maxAge: 24 * 60 * 3

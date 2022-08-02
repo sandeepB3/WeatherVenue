@@ -1,0 +1,9 @@
+{
+   "NODE_PORT": 3000,
+   "REDIS_HOST": "redis",
+   "APIHost": "http://blablablablablablablabla.com",
+   "PING_LIMITER": {
+      "max": 100,
+      "timeWindow": "1 minute"
+   }
+}

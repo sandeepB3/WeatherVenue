@@ -115,8 +115,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-google-credentials.json
-
 .idea/
 
 .env

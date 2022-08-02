@@ -1,115 +1,113 @@
-// import { weatherMap } from "./routes"
+import { config as dotenv } from 'dotenv'
+import * as Eta from 'eta'
+import fastify_ from 'fastify'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { options } from './libs/config/options/_options_.js'
+import config from './libs/config/configuration.js'
+import isSpam from './libs/decorators/spam.js'
+import isBot from './libs/decorators/visitorsFilter.js'
+import routes from './libs/routes/wv.js'
+import GracefulServer from '@gquittet/graceful-server'
+import fastify from 'fastify'
+import fastifyHelmet from '@fastify/helmet'
+import fastifyRateLimit from '@fastify/rate-limit'
+import fastifyRedis from '@fastify/redis'
+import fastifyStatic from '@fastify/static'
+import viewsPlugin from '@fastify/view'
 
-const dotenv    = require('dotenv')
-const express   = require('express')
-const helmet    = require('helmet')
-const favicon   = require('serve-favicon')
-const path      = require('path')
-const app       = express()
-const Sentry    = require('@sentry/node')
-const Tracing   = require('@sentry/tracing')
-const compression = require('compression')
+const { helmet, logger } = options
 
-dotenv.config()
-console.log(`Your port is ${process.env.PORT}`) // 8626
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-if (process.env.NODE_ENV !== 'dev') {
-  Sentry.init({
-    dsn: `https://${process.env.SENTRY_KEY}.ingest.sentry.io/1871185`,
-    integrations: [
-      new Sentry.Integrations.Http({ tracing: true }),
-      new Tracing.Integrations.Express({ app })
-    ],
-    tracesSampleRate: 1.0
-  })
-}
-app.use(compression())
-app.use(Sentry.Handlers.requestHandler())
-app.use(Sentry.Handlers.tracingHandler())
-app.use(favicon(path.join(__dirname, '/public/img', 'icon.png')))
-app.use(helmet({ contentSecurityPolicy: false }))
-app.set('view engine', 'ejs')
+dotenv()
 
-const rateLimit = require('express-rate-limit')
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+const fastify = fastify_({
+  logger: logger(),
+  disableRequestLogging: true,
+  keepAliveTimeout: 10000,
+  requestTimeout: 5000,
 })
-app.use(limiter)
-const nodePort = process.env.PORT
-
-app.listen(nodePort, () => {
-  console.log(`Server running on port ${nodePort}`)
+const gracefulServer = GracefulServer(fastify.server)
+// TODO: manage open resources
+gracefulServer.on(GracefulServer.READY, () => {
+  fastify.log.info('Server is ready')
+  console.log('Server is ready')
 })
-app.use(express.static(__dirname + '/'))
-app.use(express.static(__dirname + '/public/', {
-  etag: true, // Just being explicit about the default.
-  lastModified: true, // Just being explicit about the default.
-  setHeaders: (res, path) => {
-    const hashRegExp = new RegExp('\\.[0-9a-f]{10}\\.')
+gracefulServer.on(GracefulServer.SHUTTING_DOWN, () => {
+  fastify.log.error('Server is shutting down')
+  console.error('Server is shutting down')
+})
+gracefulServer.on(GracefulServer.SHUTDOWN, (error) => {
+  fastify.log.error('Server is down because of', error.message)
+  console.error('Server is down because of', error.message)
+})
+// SERVE STATIC CONTENT
+fastify.register(fastifyStatic, { root: path.join(__dirname, 'public') })
 
-    if (path.endsWith('.html')) {
-      // All of the project's HTML files end in .html
-      res.setHeader('Cache-Control', 'no-cache')
-    } else if (hashRegExp.test(path)) {
-      // If the RegExp matched, then we have a versioned URL.
-      res.setHeader('Cache-Control', 'max-age=604800')
-    }
+fastify.register(fastifyHelmet, helmet())
+fastify.register(fastifyRedis, { host: config('REDIS_HOST'), port: 6379, password: config('PASSWORD') })
+fastify.register(fastifyFlash)
+
+
+/*********************************************************************************************** */
+// TODO: find a way to strip very long eta logging errors
+fastify.register(viewsPlugin, {
+  engine: {
+    eta: Eta,
+  },
+  templates: 'templates',
+  options: { useWith: true },
+})
+
+fastify.addHook('onRequest', isBot)
+
+/*********************************************************************************************** */
+// !!SPAM ASSASSIN !!
+fastify.register(fastifyRateLimit, config('PING_LIMITER'))
+// TODO: Rate limiter && honeyPot except in process.env === "api"
+fastify.addHook('onRequest', isSpam)
+
+// const localize = {
+//     en: require('ajv-i18n/localize/en'),
+//     'en-US': require('ajv-i18n/localize/en'),
+//     ar: require('ajv-i18n/localize/ar'),
+//     fr: require('ajv-i18n/localize/fr'),
+// }
+
+// All unhandled errors which are handled by fastify: just send http response
+// fastify.setErrorHandler(function (error, request, reply) {
+//     if (reply.statusCode === 429) {
+//         error.message = 'You hit the rate limit! Slow down please!'
+//         reply.send(error)
+//         return reply
+//     }
+
+//     if (error.validation) {
+//         localize[request.cookies.locale || 'en'](error.validation)
+//         reply.status(422).send(error.validation)
+//         return reply
+//     }
+//     error.message = error.message.slice(0, 3000)
+//     request.log.error(error)
+//     error.message = 'Server is having hard times :( Please try again later.'
+//     reply.status(409).send(error)
+// })
+
+// fastify.register(chatRouter, { prefix: 'chat' })
+fastify.register(routes)
+
+const start = async () => {
+  try {
+    const port = process.env.PORT || config('NODE_PORT')
+    console.log('The app is accessible on port: ' + port)
+    await fastify.listen({ port, host: '0.0.0.0' })
+    gracefulServer.setReady()
+  } catch (err) {
+    console.log(err)
+    fastify.log.error(err)
+    process.exit(1)
   }
-}))
-
-let pass = ''
-if (process.env.NODE_ENV === 'dev') {
-  pass = process.env.PASS
 }
-app.use(`/${pass}`, require('./api/routes_api'))
-app.use(`/${pass}`, require('./api/routes_ui'))
-
-if (process.env.NODE_ENV === 'prod') {
-  app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https') {
-      res.redirect(`https://${req.header('host')}${req.url}`)
-    } else {
-      next()
-    }
-  })
-}
-
-const dns = require('dns')
-app.use(function (req, res, next) {
-  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  if (ip.substr(0, 7) === '::ffff:') {
-    ip = ip.substr(7)
-  }
-
-  if (process.env.NODE_ENV === 'dev' || ip.split('.')[0] === '127') { return next() }
-  const reversedIp = ip.split('.').reverse().join('.')
-  dns.resolve4([process.env.HONEYPOT_KEY, reversedIp, 'dnsbl.httpbl.org'].join('.'), function (err, addresses) {
-    if (!addresses) { return next() }
-    const _response = addresses.toString().split('.').map(Number)
-    const test = (_response[0] === 127 && _response[3] > 0) // visitor_type[_response[3]]
-    if (test) { res.send({ msg: 'we hate spam to begin with!' }) }
-    return next()
-  })
-})
-
-const helpers = require('./helpers')
-app.use(function (req, res, next) {
-  res.status(404)
-  let lang = 'en'
-  if (req.url.indexOf('/ar/') > -1) {
-    lang = 'ar'
-  } else if (req.url.indexOf('/fr/') > -1) {
-    lang = 'fr'
-  }
-  res.render('404', {
-    key: process.env.OPENWEATHERMAP_API_KEY,
-    pass: pass,
-    dependencies: helpers.mappings,
-    scripts: helpers.mappings0,
-    lang: lang,
-    messages: helpers.messages.notFoundMessages[lang]
-  })
-})
-
-module.exports = app
+await start()

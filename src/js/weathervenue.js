@@ -8,6 +8,7 @@ import { refreshCenter } from './helpers/refreshCenter.js'
 import { renderForecastDays } from './helpers/renderForecastDays.js'
 import { renderPollution } from './helpers/renderPollution.js'
 import { nearbyRequest, nearbyTriggeredRequest } from './helpers/requests.js'
+import { ops } from './helpers/routines.js'
 import { showAlertsList } from './helpers/showAlertsList.js'
 import { state } from './state.js'
 
@@ -156,10 +157,10 @@ loader.load().then((google) => {
     })
     // Trigger first request automatically
     state.language = 'fr'
-    const centerLocation = process.env.centerLocation
+    const centerLocation = process.env.CENTER_LOCATION
     state.currentMarked = centerLocation
-    state.center.lat = process.env.lat
-    state.center.lng = process.env.lng
+    state.center.lat = process.env.DEFAULT_LAT
+    state.center.lng = process.env.DEFAULT_LNG
     const pos = {
         lat: Number(state.center.lat),
         lng: Number(state.center.lng),
@@ -169,3 +170,11 @@ loader.load().then((google) => {
     nearbyTriggeredRequest(pos)
     LIS.id('imgGrid').innerHTML = ''
 })
+
+
+LIS.id('minmax').onclick = ops.minMax()
+// TODO: Loop over all TempretureCard#html() and attach these functions to events
+LIS.id('startover').onclick = ops.emptyIt()
+LIS.id('comparision-items').ondrop = (event) => ops.drop(event)
+LIS.id('comparision-items').ondragover = (event) => ops.allowDrop(event)
+// LIS.id('themeSwitch').onclick = (ev) => ops.themeSwitch()

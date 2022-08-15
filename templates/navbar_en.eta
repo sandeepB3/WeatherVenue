@@ -13,7 +13,7 @@
           <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal2">Functionalities</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" onclick="introJs().start()">Tour</a>
+          <a class="nav-link" href="#" id="intro">Tour</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="#">Donate</a>

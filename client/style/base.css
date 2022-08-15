@@ -288,7 +288,7 @@ html {
     color: #92A5FD;
   }
   
-  #location, #gallery, .section_head, #explanatory-text {
+  #location, #gallery, .sectionHead, #explanatory-text {
     margin: 0 auto;
     padding: 20px;
     text-align: center;

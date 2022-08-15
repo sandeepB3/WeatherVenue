@@ -22,10 +22,10 @@
   <%~ includeFile('map', { command: 'Enter a location', messages: messages, lang: lang }); %>
 
   <div class="container-fluid" data-intro=<%= messages.tour[lang].cards %> data-position="auto">
-    <h3 class="section_head" id="location">Entrer votre ville pour avoir les prévisions</h3>
+    <h3 class="sectionHead" id="location">Entrer votre ville pour avoir les prévisions</h3>
     <p id="date"></p>
     <div class="row text-center" id="minibar1">
-      <button id="collapse1" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#forecast-items">
+      <button id="collapse1" type="button" aria-label="collapse" class="btn btn-light" data-bs-toggle="collapse" href="#forecast-items">
         <i class="bi bi-arrows-collapse">&#8203;</i>
       </button>
       <button type="button" aria-label="min-max" class="btn btn-light" id="minmax">
@@ -37,9 +37,9 @@
   </div>
 
   <div class="container-fluid" data-intro=<%= messages.tour[lang].comparision %> data-position="auto">
-    <h3 class="section_head">Comparaison météo</h3>
+    <h3 class="sectionHead">Comparaison météo</h3>
     <div class="row text-center" id="minibar2">
-      <button id="collapse2" type="button" aria-label="collapse" class="btn btn-light" data-toggle="collapse" href="#comparision-items">
+      <button id="collapse2" type="button" aria-label="collapse" class="btn btn-light" data-bs-toggle="collapse" href="#comparision-items">
         <i class="bi bi-arrows-collapse">&#8203;</i>
       </button>
       <button type="button" aria-label="empty-it" class="btn btn-light" id="startover">
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <h3 class="section_head" id="gallery">Des images locales de la ville principale apparaîtront ci-dessous</h3>
+  <h3 class="sectionHead" id="gallery">Des images locales de la ville principale apparaîtront ci-dessous</h3>
   <div class="row" id="imgGrid" data-intro=<%= messages.tour[lang].gallery %> data-position="auto">
 
   </div>

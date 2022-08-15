@@ -1,6 +1,6 @@
 import pkg from 'cityjs'
 import S from 'fluent-json-schema'
-import googleHelmet from '../config/options/helmet.js'
+import googleHelmet from '../options/helmet.js'
 import { fetchWeather, fetchWeather0, formatCities, messages } from '../services/helpers.js'
 const { nearestCities } = pkg
 

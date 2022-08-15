@@ -3,13 +3,14 @@ import { createRequire } from 'module'
 import path from 'path'
 import pupa from 'pupa'
 import { fileURLToPath } from 'url'
+
 dotenv()
 process.title = process.env['APP_NAME']
 const require = createRequire(import.meta.url)
 const nodeConfig = require('config')
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-process.env['NODE_CONFIG_DIR'] = __dirname + '/config/'
+process.env['NODE_CONFIG_DIR'] = __dirname
 console.warn(`Loading configuration from ${process.env['NODE_CONFIG_DIR']}`)
 console.warn(`Running on Node environment ?: ${process.env.NODE_ENV}`)
 

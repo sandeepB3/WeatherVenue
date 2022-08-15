@@ -18,6 +18,7 @@ export default {
                 '*.google.com',
                 'https://*.ggpht.com',
                 '*.googleusercontent.com',
+                'unpkg.com',
             ],
             'img-src': [
                 "'self'",
@@ -36,8 +37,8 @@ export default {
                 'https://*.gstatic.com',
                 'data: blob:',
             ],
-            'font-src': ['https://fonts.gstatic.com'],
-            'style-src': ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net', 'https://fonts.googleapis.com'],
+            'font-src': ['https://fonts.gstatic.com', 'cdn.jsdelivr.net'],
+            'style-src': ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net', 'https://fonts.googleapis.com', 'unpkg.com'],
         },
     },
 }

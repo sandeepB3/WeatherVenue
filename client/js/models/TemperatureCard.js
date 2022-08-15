@@ -76,7 +76,7 @@ export default class TemperatureCard {
               <table style="width:100%">
                   <tr>${this.getColorScaleHeads()}</tr>
               </table>
-              <h4 class="card-title text-center" data-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="false">${collapseIcon}${this.dayName}\n${this.ISODate}</h4>
+              <h4 class="card-title text-center" data-bs-toggle="collapse" href="#collapseId${this.co}" role="button" aria-expanded="false">${collapseIcon}${this.dayName}\n${this.ISODate}</h4>
               <img class="card-img mx-auto d-block" style="max-width: 40%; margin:-10% 0px -10% 0px;" src="${this.iconSrc}">
               <h5 class="card-title text-center" style="margin:0">${this.description}</h5>
               <div class="card-body">

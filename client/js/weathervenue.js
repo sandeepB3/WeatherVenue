@@ -172,9 +172,10 @@ loader.load().then((google) => {
 })
 
 
-LIS.id('minmax').onclick = ops.minMax()
+
 // TODO: Loop over all TempretureCard#html() and attach these functions to events
-LIS.id('startover').onclick = ops.emptyIt()
+LIS.id('startover').onclick = ops.emptyIt
 LIS.id('comparision-items').ondrop = (event) => ops.drop(event)
 LIS.id('comparision-items').ondragover = (event) => ops.allowDrop(event)
+LIS.id('intro').onclick = () => window.introJs().start()
 // LIS.id('themeSwitch').onclick = (ev) => ops.themeSwitch()

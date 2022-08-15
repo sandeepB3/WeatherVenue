@@ -2,7 +2,7 @@ import { LIS } from "./lis.js"
 import TemperatureCard from "../models/TemperatureCard.js"
 import { weekdaysLangs } from "../models/translations.js"
 import { state } from "../state.js"
-
+import { ops } from '../helpers/routines.js'
 
 // Create and Update the HTML list of div cards holding a list of weather information for one city in a week
 // Fill __currentSpokenForecast with a transcript for Weather forecast
@@ -16,9 +16,8 @@ export const renderForecastDays = (dailies) => {
         return second.dt - first.dt
     })
     const weekdayNames = weekdaysLangs(state.language)
-    lastIcon = `url(https://openweathermap.org/img/wn/${
-        dailies[dailies.length - 1].weather[0].icon || 'na'
-    }.png)`
+    lastIcon = `url(https://openweathermap.org/img/wn/${dailies[dailies.length - 1].weather[0].icon || 'na'
+        }.png)`
     const choiceTheme =
         localStorage.getItem('themeSwitch') !== null && localStorage.getItem('themeSwitch') === 'true'
     if (choiceTheme) {
@@ -41,9 +40,8 @@ export const renderForecastDays = (dailies) => {
         LIS.id('forecast-items').insertAdjacentHTML('afterbegin', card.html())
     })
     window.todayWeather = dailies[0].weather[0].description
-    // const minMaxBtn = '<div class="text-center"><button type="button" class="btn btn-light" id="minmax" onclick="minMax()"><i class="bi bi-thermometer"></i><i class="bi bi-thermometer-high"></i></button></div>'
-    // LIS.id('forecast-items').insertAdjacentHTML('beforebegin', minMaxBtn)
 
+    LIS.id('minmax').onclick = ops.minMax
     // dailies.reverse()
     // let __currentSpokenForecast = 'Now, let’s see what the weather is like in ' + __currentSpokenCity + ': '
     // dailies.forEach(function (period, key) {

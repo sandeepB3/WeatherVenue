@@ -1,6 +1,4 @@
-### Note for the next 🎉Hacktoverfest🎉
-Stay tuned for a modular version: ECMAScript modules + a whole rewrite of back end from Express to Fastify.
-
+### 🎉Hacktoverfest🎉
 # WeatherVenue
 
 > Hacktoberfest: I only accept pull requests where the user went through installation. Please share a capture of a working installation with pull request.
@@ -13,9 +11,8 @@ It is a NodeJs & Express web app with other dependencies (axios, redis, reverse-
 
 # Deployment
 
-[SETUP](https://github.com/bacloud14/WeatherVenue/discussions/33)
+[SETUP](https://github.com/bacloud14/WeatherVenue/discussions/33) (this is outdated, now we use Parcel instead of Gulp)
 
-[WALK-THROUGH](https://github.com/bacloud14/WeatherVenue/blob/master/CONTRIBUTING/CONTRIBUTING.pdf)
 
 # A Glimpse of UI
 
@@ -29,17 +26,13 @@ when deployed after research it should be like:
 ![UI city pictures](CONTRIBUTING/Capture_city_pictures.PNG)
 
 
-### Animated background available!
-![Storm background](CONTRIBUTING/demo_of_stormy_background.gif)
 
 # Contribution
 
 
 Please see open issues for a specific issue, and do not hesitate to open any new issue (like better code, readability, modularity and best practice, performance, better UI or even functionality enhancements...).
 
-
-
-Current priority: 
+### Current priority: 
 
 https://github.com/bacloud14/WeatherVenue/issues/1
 

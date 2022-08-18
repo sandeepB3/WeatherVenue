@@ -6,7 +6,8 @@ Like my other repositories, I try to make my projects welcoming to new comers. W
 Check [how to contribute page](https://opensource.guide/how-to-contribute/)
 
 This project is no exception; Check a walk-through presentation of the code.  
-[WALK-THROUGH](https://github.com/bacloud14/WeatherVenue/blob/master/CONTRIBUTING/CONTRIBUTING.pdf) 
+
+WALK-THROUGH (soon, I need to update it)
 
 
 Please prefer discussions page before opening a new issue unless it is an obvious bug or enhancement.

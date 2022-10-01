@@ -1,4 +1,4 @@
-import domtoimage from 'dom-to-image';
+import domtoimagemore from 'dom-to-image-more';
 import { LIS } from "./lis.js";
 
 
@@ -7,7 +7,7 @@ export const shareCard = (card_id) => {
     // dd.style.backgroundColor ="white"
     const scale = 2
     // dd.childNodes[4].remove()
-    domtoimage.toBlob(dd, {
+    domtoimagemore.toBlob(dd, {
       width: dd.clientWidth * scale,
       height: dd.clientHeight * scale,
       bgcolor: 'white',
